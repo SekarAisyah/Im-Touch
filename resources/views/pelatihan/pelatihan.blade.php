@@ -341,7 +341,7 @@
                     <li><a class="dropdown-item send-link" href="#" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
                     <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
                     <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
-                    <li><a class="dropdown-item bi bi-file-pdf export" data-id="{{ $pelatihan->id }}" href="#"> Export PDF</a></li>               
+                    <li><a class="dropdown-item bi bi-file-pdf" href="pelatihan/pelatihan_pdf" data-id="{{ $pelatihan->id }}" href="#"> Export PDF</a></li>               
                 </ul>
                 @elseif($pelatihan->kode_status == 1 && auth()->user()->id_role == 1)
                 <ul class="dropdown-menu">
