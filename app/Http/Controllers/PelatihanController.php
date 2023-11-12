@@ -272,7 +272,11 @@ protected $pelatihanRepository;
 
         $templatePath = 'resources/views/pelatihan/PelatihanMitraBara.docx';
         $phpWord = new TemplateProcessor($templatePath);
+<<<<<<< HEAD
         //dd($templatePath);
+=======
+//dd($templatePath);
+>>>>>>> fa969ffb759ca3cc233d8817c87f04606578d2bb
         $data = $this->pelatihanRepository->getById($id);
         $phpWord->setValue('name', $data->name);
 
