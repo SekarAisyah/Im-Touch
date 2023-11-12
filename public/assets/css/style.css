@@ -268,6 +268,7 @@ h6 {
 /* Close Button */
 .btn-close {
   background-size: 25%;
+  background-color: #fff;
 }
 
 .btn-close:focus {
@@ -372,7 +373,7 @@ h6 {
 }
 
 .logo img {
-  max-height: 26px;
+  max-height: 50px;
   margin-right: 0 auto;
 }
 
@@ -1262,7 +1263,7 @@ h6 {
 }
 
 /* Modal */
-.card-body .modalpelatihan, .form-select, .form-control{
+.card-body .modal_add, .form-select, .form-control{
   font-size: 12px;
 }
 
@@ -1286,9 +1287,8 @@ h6 {
 }
 
 .form-login {
-  max-width: 180px;
-  text-align: center;
-  margin: 0 auto; /* Menengahkan elemen horizontal */
+  max-width: 200px;
+  margin: 15px 70px auto; 
 }
 
 .form-input {
@@ -1320,3 +1320,109 @@ h6 {
   font-size: 14px; 
   padding: 5px 10px;
 }
+
+
+/* PDF BLADE */
+table {
+  width: 80%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 3px 10px;
+  text-align: left;
+}
+.tableutama {
+  border: 1px solid black;
+ padding:  100px;
+}
+
+hr{
+  border: 1px solid black;
+  color: black;
+     padding: 0px;  
+     margin: 5px 0 3px;
+}
+
+.headersurat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  color: black;
+}
+.logosurat-left {
+  width: 100px; /* Lebar logo kiri */
+  height: auto;
+}
+.logosurat-right {
+  width: 100px; /* Lebar logo kanan */
+  height: auto;
+}
+.titlesurat {
+  font-size: 20px; /* Ukuran teks judul */
+  font-weight: 1000;
+}
+.contentsurat {
+  font-size:12px; /* Ukuran teks judul */
+  margin: 0;
+  padding: 0;
+  align-content: end;
+  text-align: end;
+}
+
+.signature-column {
+  width: 50%; /* Setengah lebar tabel */
+}
+
+.keterangan {
+  height: 50px; /* Tinggi kolom tanda tangan */
+}
+
+.signature {
+  height: 100px; /* Tinggi kolom tanda tangan */
+}
+
+/* View */
+/* Gaya tambahan untuk membuat modal lebih menarik */
+.modal-view {
+  color: #333;
+}
+
+.modal-view .modal-header {
+  background-color: #081930;
+  color: #fff;
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-view .modal-body {
+  padding: 10px;
+  font-size: 12px;
+}
+
+.modal-view .modal-footer {
+  border-top: 1px solid #dee2e6;
+  padding: 15px;
+}
+
+.pelatihan-details {
+  margin: 10px 15px 5px 15px ;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px; 
+}
+
+.detail label {
+  font-weight: bold;
+  flex-basis: 30%; 
+}
+
+.detail span {
+  flex-basis: 100%; 
+  text-align: justify;
+}
+
+

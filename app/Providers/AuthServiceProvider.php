@@ -21,10 +21,17 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    // public function boot()
+    // {
+    //     $this->registerPolicies();
+
+    //     //
+    // }
+
     public function boot()
     {
-        $this->registerPolicies();
-
-        //
+        $this->app['auth']->provider('custom', function ($app, array $config) {
+            return new CustomUserProvider($app['hash']);
+        });
     }
 }
