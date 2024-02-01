@@ -1,5 +1,5 @@
 @extends('include/mainlayout')
-
+@section('title', 'ReportPelatihan')
 @section('content')
 
 <div class="pagetitle">

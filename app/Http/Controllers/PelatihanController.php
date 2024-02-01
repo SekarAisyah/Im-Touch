@@ -9,115 +9,20 @@ use Illuminate\Http\JsonResponse;
 use App\Models\User;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpParser\Node\Stmt\Return_;
+use Barryvdh\DomPDF\Facade as PDFFacade;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use PhpOffice\PhpWord\Writer\PDF as WriterPDF;
+use PhpOffice\PhpWord\Writer\PDF\DomPDF;
+use PhpOffice\PhpWord\IOFactory;
+use Mpdf\Mpdf;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpWord\Writer\PDF\MPDF as PDFMPDF;
 
 class PelatihanController extends Controller
 {
-//     protected $pelatihanRepository;
 
-//     public function __construct(pelatihanRepository $pelatihanRepository)
-//     {
-//         $this->pelatihanRepository = $pelatihanRepository;
-//     }
-
-//     // Metode untuk menampilkan data pelatihan
-//     // public function index()
-//     // {
-//     //     $pelatihan = $this->opiniRepository->getAllPelatihan();
-//     //     return view('pelatihan.index', compact('pelatihan'));
-//     // }
-
-//     // Metode untuk menambahkan pelatihan
-//     public function pelatihan_action(Request $request)
-//     {
-//         // dd($request->all());
-//         $action_flag = $request->action_flag;
-//         // $user = $request->session()->get('user');
-
-//         $data = array(
-//             'id_pelatihan' => $request->id_pelatihan,
-//             'jenis_pelatihan' => $request->no_ref,
-//             'nama_pelatihan' => $request->nama_pelatihan,
-//             'informasi_pelatihan' => $request->informasi_pelatihan,
-//             'narasumber' => $request->narasumber,
-//             'alasan_pelatihan' => $request->alasan_pelatihan,
-//             'sharing_pelatihan' => $request->sharing_pelatihan,
-//             'waktu_pelatihan' => $request->waktu_pelatihan,
-//             'tempat_pelatihan' => $request->tempat_pelatihan,
-//             'biaya_pelatihan' => $request->biaya_pelatihan,
-//             'kode_status' => 1, //create
-//             // 'id_user' => $user->id_user,
-//             // 'nama_user' => $user->first_name.' '.$user->last_name,
-//         );
-
-    
-//         // dd($data);
-
-//         if($action_flag == 'A'){
-//             $ket_log = 'Add';
-//             $action = $this->pelatihanRepository->Add($data);
-//         }else if($action_flag == 'E'){
-//             $ket_log = 'Edit';
-//             // $action = $this->pelatihanRepository->Edit($data);
-//         }
-
-        
-//         $result[] = array("status" => $action['status'], "message" => 'Item has been '.$ket_log.'ed', "type" => $action['type']);  
-//         return response()->json($result[0]);
-//     }  
-
-// }
-
-
-//     // // Metode untuk mengedit pelatihan
-//     // public function edit(Request $request, $id)
-//     // {
-//     //     // Validasi data masukan dari form
-//     //     $this->validate($request, [
-//     //         'jenisPelatihan' => 'required',
-//     //         'informasi_pelatihan' => 'required',
-//     //         // Tambahkan validasi lainnya sesuai kebutuhan
-//     //     ]);
-
-//     //     // Proses penyuntingan pelatihan dengan repository
-//     //     $result = $this->pelatihanRepository->Edit($request->all());
-
-//     //     // Tampilkan pesan sukses atau kesalahan
-//     //     if ($result['status'] == 1) {
-//     //         return redirect()->route('pelatihan.index')->with('success', $result['message']);
-//     //     } else {
-//     //         return redirect()->route('pelatihan.index')->with('error', $result['message']);
-//     //     }
-//     // }
-
-//     // // Metode untuk menghapus pelatihan
-//     // public function delete($id)
-//     // {
-//     //     // Proses penghapusan pelatihan dengan repository
-//     //     $result = $this->pelatihanRepository->Deleted(['id' => $id]);
-
-//     //     // Tampilkan pesan sukses atau kesalahan
-//     //     if ($result['status'] == 1) {
-//     //         return redirect()->route('pelatihan.index')->with('success', $result['message']);
-//     //     } else {
-//     //         return redirect()->route('pelatihan.index')->with('error', $result['message']);
-//     //     }
-//     // }
-
-//     // // Metode untuk mengirim pelatihan
-//     // public function send(Request $request, $id)
-//     // {
-//     //     // Proses pengiriman pelatihan dengan repository
-//     //     $result = $this->pelatihanRepository->Send(['id' => $id]);
-
-//     //     // Tampilkan pesan sukses atau kesalahan
-//     //     if ($result['status'] == 1) {
-//     //         return redirect()->route('pelatihan.index')->with('success', $result['message']);
-//     //     } else {
-//     //         return redirect()->route('pelatihan.index')->with('error', $result['message']);
-//     //     }
-//     // }
-
-protected $pelatihanRepository;
+    protected $pelatihanRepository;
 
     public function __construct(PelatihanRepository $pelatihanRepository)
     {
@@ -126,25 +31,48 @@ protected $pelatihanRepository;
 
     public function index()
     {
-        $pelatihanData = $this->pelatihanRepository->getAll();
-        // return view('/pelatihan', ['pelatihanData' => $pelatihanData]);
+        
+        $pelatihanData = $this->pelatihanRepository->getAllWithUsername();
+        $nrpOptions = User::select('nrp')->distinct()->get();
 
-        // Mendapatkan data NRP untuk dropdown
-    $nrpOptions = User::select('nrp')->distinct()->get();
+        return view('/pelatihan/pelatihan', [
+            'pelatihanData' => $pelatihanData,
+            'nrpOptions' => $nrpOptions,
+        ]);
+    }
 
-    // Mengirimkan data ke tampilan
-    return view('/pelatihan/pelatihan', [
-        'pelatihanData' => $pelatihanData,
-        'nrpOptions' => $nrpOptions,
-    ]);
+    public function report(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Gunakan filter waktu jika ada
+        $query = $this->pelatihanRepository->getAllWithDate();
+        if ($startDate && $endDate) {
+            $query->whereBetween('m_pelatihan.waktu', [$startDate, $endDate]);
+        }
+
+        $pelatihanData = $query->get();
+
+        return view('/report/report_pelatihan', [
+            'pelatihanData' => $pelatihanData,
+            'startDate' => $startDate,  // Pass start_date to the view
+            'endDate' => $endDate,      // Pass end_date to the view
+        ]);
     }
 
     public function create(Request $request)
 
     {
         
-        $data = $request->all();
-        $result = $this->pelatihanRepository->create($data);
+        // $this->validate($request, [
+        //         'nama_pelatihan_add' => 'required|string',   
+        //     ]);
+        $userRole = auth()->user()->id_role; 
+        $data = $request->except('_token');
+        //$data = $request->all();
+
+        $result = $this->pelatihanRepository->create($data, $userRole);
         
         if ($result) {
             return Response::json(['status' => 'success']);
@@ -153,24 +81,11 @@ protected $pelatihanRepository;
         }
     }
 
-    // public function edit(Request $request)
-    // {
-
-    //     $data = $request->all();
-    //     $pelatihanId = $request->input('pelatihan_id');
-    //     $result = $this->pelatihanRepository->edit($data, $pelatihanId);
-        
-    //     if ($result) {
-    //         return Response::json(['status' => 'success']);
-    //     } else {
-    //         return Response::json(['status' => 'error']);
-    //     }
-    // }
-
     public function edit($id, Request $request)
     {
         $data = $request->all();
-        $result = $this->pelatihanRepository->edit($data, $id);
+        $userRole = auth()->user()->id_role; 
+        $result = $this->pelatihanRepository->edit($data, $id, $userRole);
         
         if ($result) {
             return response()->json(['status' => 'success']);
@@ -178,7 +93,6 @@ protected $pelatihanRepository;
             return response()->json(['status' => 'error']);
         }
     }
-
 
     public function send(Request $request)
     {
@@ -189,7 +103,6 @@ protected $pelatihanRepository;
         //dd($selectedPelatihanId);
         $result = $this->pelatihanRepository->send($userId, $userRole, $sendName, $selectedPelatihanId);
     
-
         return response()->json(['message' => $result]);
     }
 
@@ -197,9 +110,8 @@ protected $pelatihanRepository;
     {
 
         $selectedPelatihanId = $request->input('pelatihan_id');
-        //dd($selectedPelatihanId);
-        $result = $this->pelatihanRepository->delete($selectedPelatihanId);
     
+        $result = $this->pelatihanRepository->delete($selectedPelatihanId);
 
         return response()->json(['message' => $result]);
     }
@@ -227,7 +139,7 @@ protected $pelatihanRepository;
         $selectedPelatihanId = $request->input('pelatihan_id');
         $pesanRevisi = $request->input('revisi');
 
-        $result = $this->pelatihanRepository->revisi($revisiName, $selectedPelatihanId, $pesanRevisi, $userId);
+        $result = $this->pelatihanRepository->revisi($revisiName,$userRole, $selectedPelatihanId, $pesanRevisi, $userId);
 
     return response()->json(['message' => $result]);
     }
@@ -239,6 +151,7 @@ protected $pelatihanRepository;
         return response()->json($pelatihan);
     }
 
+
     public function getUser()
     {
         $nrpOptions = User::select('nrp')->distinct()->get();
@@ -249,16 +162,13 @@ protected $pelatihanRepository;
     public function getUserInfo(Request $request)
     {
         $nrp = $request->input('nrp');
-
-        // Cari informasi user berdasarkan NRP
         $user = User::where('nrp', $nrp)->first();
 
-        // Mengembalikan informasi dalam format JSON
         return response()->json([
-            'nama' => $user->nama,
+            'nama' => $user->name,
             'jabatan' => $user->jabatan,
             'departemen' => $user->departemen,
-            'perusahaan' => $user->perusahaan,
+            'divisi' => $user->divisi,
         ]);
     }
 
@@ -266,19 +176,28 @@ protected $pelatihanRepository;
         return view('pelatihan/pelatihan_pdf');
     }
 
-    public function exportToWord(Request $request)
+    public function exportToWord($id)
     {
-        $id= $request->input('pelatihan_id');
-
-        $templatePath = 'resources/views/pelatihan/PelatihanMitraBara.docx';
+        $templatePath = base_path('resources/views/pelatihan/pelatihan.docx');
         $phpWord = new TemplateProcessor($templatePath);
-dd($templatePath);
+    
         $data = $this->pelatihanRepository->getById($id);
-        $phpWord->setValue('name', $data->name);
+    
+        $phpWord->setValue('nrp', $data->nrp);
+        $phpWord->setValue('nama', $data->name);
+        $phpWord->setValue('jabatan', $data->jabatan);
+        $phpWord->setValue('departemen', $data->departemen);
+        $phpWord->setValue('nohp', $data->phone_number);
+        $phpWord->setValue('alamat', $data->alamat);
 
+        $outputDirectory = storage_path('app/public/exports/');
         $filename = "Pelatihan.docx";
-        $phpWord->saveAs($filename);
+        $outputPath = $outputDirectory . $filename;
+    
 
-        return response()->download($filename)->deleteFileAfterSend(true);
+        $phpWord->saveAs($outputPath);
+
+        return response()->download($outputPath)->deleteFileAfterSend(true);
     }
+
 }

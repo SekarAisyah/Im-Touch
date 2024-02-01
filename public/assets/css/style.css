@@ -48,7 +48,23 @@ h6 {
 }
 
 #datatable th, td {
-  font-size: 12px; /* Ubah ukuran font untuk sel data */
+  font-size: 12px; 
+  
+}
+
+#dt_pelatihan th, td {
+  font-size: 12px; 
+  
+}
+
+#dt_admp th, td {
+  font-size: 12px; 
+  
+}
+
+#dt_coaching th, td {
+  font-size: 12px; 
+  
 }
 
 /*--------------------------------------------------------------
@@ -231,8 +247,8 @@ h6 {
 }
 
 .card-title {
-  padding: 20px 0 15px 0;
-  font-size: 14px;
+  padding: 20px 0 0px 0;
+  font-size: 11px;
   font-weight: 500;
   color: #012970;
   font-family: "Poppins", sans-serif;
@@ -373,8 +389,8 @@ h6 {
 }
 
 .logo img {
-  max-height: 50px;
-  margin-right: 0 auto;
+  max-height: 27px;
+  margin-right: 20px;
 }
 
 .logo span {
@@ -610,10 +626,10 @@ h6 {
   top: 60px;
   left: 0;
   bottom: 0;
-  width: 225px;
+  width: 230px;
   z-index: 996;
   transition: all 0.3s;
-  padding: 20px 15px 15px 20px;
+  padding: 20px 10px 0px 10px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
@@ -736,8 +752,6 @@ h6 {
   padding: 0px 0 0 0;
   margin: 0;
   list-style: none;
- 
-  
 }
 
 .sidebar-nav .nav-content a {
@@ -745,7 +759,7 @@ h6 {
   align-items: center;
   font-size: 13px;
   font-weight: 600;
-  color: #fff;
+  color: #f9a603;
   transition: 0.3;
   padding: 5px 0 5px 30px;
   transition: 0.3s;
@@ -761,7 +775,7 @@ h6 {
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-  color: #f9a603;
+  color: #fff;
 }
 
 .sidebar-nav .nav-content a.active i {
@@ -811,7 +825,7 @@ h6 {
 
 /* Info Cards */
 .dashboard .info-card {
-  padding-bottom: 10px;
+  padding-bottom: 2px;
 }
 
 .dashboard .info-card h6 {
@@ -844,6 +858,11 @@ h6 {
 .dashboard .customers-card .card-icon {
   color: #ff771d;
   background: #ffecdf;
+}
+
+.dashboard .cost-card .card-icon {
+  color: #4154f1;
+  background: #f6f6fe;
 }
 
 /* Activity */

@@ -1,11 +1,11 @@
 @extends('include/mainlayout')
-
+@section('title', 'Pelatihan')
 @section('content')
     <div class="pagetitle">
       <h1>Pelatihan</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
           <li class="breadcrumb-item active">Pelatihan</li>
         </ol>
       </nav>
@@ -48,8 +48,8 @@
                                         <span id="departemen"></span>
                                     </div>
                                     <div class="detail">
-                                        <label for="perusahaan">Perusahaan:</label>
-                                        <span id="perusahaan"></span>
+                                        <label for="divisi">divisi:</label>
+                                        <span id="divisi"></span>
                                     </div>
                                     <div class="detail">
                                         <label for="nama_pelatihan">Nama Pelatihan </label>
@@ -87,6 +87,26 @@
                                         <label for="biaya_pelatihan">Biaya Pelatihan:</label>
                                         <span id="biaya_pelatihan">Rp. </span>
                                     </div>
+                                    <div class="detail">
+                                        <label for="aprroval">Aprroval by :</label>
+                                        <span id="approval"> </span>
+                                    </div>
+                                     <div class="detail">
+                                        <label for="revisi_by">Revisi by:</label>
+                                        <span id="revisi_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="revisi_desc">Keterangan Revisi :</label>
+                                        <span id="revisi_desc"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_by">Reject by :</label>
+                                        <span id="reject_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_desc">Keterangan Reject :</label>
+                                        <span id="reject_desc"> </span>
+                                    </div>
                                    
                                 </div>
                             </div>
@@ -113,16 +133,12 @@
                         <input type="hidden" name="tgl_mulai" id="tgl_mulai" />
                         {{-- <input type="hidden" name="last_seq" id="last_seq" value="{{{$last_seq}}}" /> --}}
 
-                        <form class="row g-3" method="POST" >
+                        <form class="row g-3 needs-validation" method="POST" action="/pelatihan/create">
                         @csrf
                             <div class="col-md-6">
-                            {{-- <div class="form-floating">
-                                <input type="text" class="form-control" id="nrp" name ="nrp" placeholder="Your NRP">
-                                <label for="message-text">NRP <span style="color:red">*</span></label>
-                            </div> --}}
                             <div class="form-floating">
-                                <select class="form-control" id="nrp" name="nrp">
-                                    <option value="" disabled selected>Select NRP</option>
+                                <select class="form-control" id="nrp-dropdown" name="nrp-dropdown">
+                                    <option value="" selected>Select NRP</option>
                                     @foreach ($nrpOptions as $nrp)
                                         <option value="{{ $nrp->nrp }}">{{ $nrp->nrp }}</option>
                                     @endforeach
@@ -133,27 +149,27 @@
                             </div>
                             <div class="col-md-6">
                             <div class="form-floating">
-                            
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
-                                <label for="message-text">Nama <span style="color:red">*</span></label>
+                                <input type="text" disabled class="form-control" id="name-add" name="name-add" placeholder="Name">
+                                <label for="message-text">Nama </label>
+                                
                             </div>
                             </div>
                             <div class="col-md-4">
                              <div class="form-floating">
-                                <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan">
-                                <label for="message-text">Jabatan <span style="color:red">*</span></label>
+                                <input type="text" disabled class="form-control" id="jabatan-add" name="jabatan-add" placeholder="Jabatan">
+                                <label for="message-text">Jabatan </label>
                             </div>
                             </div>
                             <div class="col-md-4">
                              <div class="form-floating">
-                                <input type="text" class="form-control" id="departemen" name="departemen" placeholder="Password">
-                                <label for="message-text">Departemen <span style="color:red">*</span></label>
+                                <input type="text" disabled class="form-control" id="departemen-add" name="departemen-add" placeholder="Password">
+                                <label for="message-text">Departemen </label>
                             </div>
                             </div>
                              <div class="col-md-4">
                              <div class="form-floating">
-                                <input type="text" class="form-control" id="perusahaan" name="perusahaan" placeholder="Password">
-                                <label for="message-text">Perusahaan <span style="color:red">*</span></label>
+                                <input type="text" disabled class="form-control" id="divisi-add" name="divisi-add" placeholder="Password">
+                                <label for="message-text">divisi</label>
                             </div>
                             </div>
                             <div class="col-md-12">
@@ -164,30 +180,32 @@
                                     <option value="pelatihan3">Pelatihan 3</option>
                                 </select>
                              <label for="jenis_pelatihan">Jenis Pelatihan<span style="color:red">*</span></label>
+                             
                             </div>
                             </div>
                             <div class="col-md-12">
                             <div class="form-floating">
                                 <textarea class="form-control" placeholder="Address" id="informasi_pelatihan" name="informasi_pelatihan" style="height: 100px;"></textarea>
-                                <label for="message-text">Informasi Pelatihan <span style="color:red">*</span></label>
+                                <label for="message-text">Informasi Pelatihan </span></label>
                             </div>
                             </div>
                             <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="nama_pelatihan" name="nama_pelatihan" placeholder="Nama Pelatihan">
-                                <label for="message-text">Nama Pelatihan <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="nama_pelatihan_add" name="nama_pelatihan_add" placeholder="nama_pelatihan_add" required>
+                                <label for="nama_pelatihan_add"> Nama Pelatihan <span style="color:red">*</span></label>
+                                
                             </div>
                             </div>
                              <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="narasumber" name="narasumber" placeholder="Narasumber">
-                                <label for="message-text">Narasumber <span style="color:red">*</span></label>
+                                <input type="text" class="form-control" id="narasumber" name="narasumber" placeholder="Narasumber" >
+                                <label for="message-text">Narasumber</span></label>
                             </div>
                             </div>
                             
                             <div class="col-md-12">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Address" id="alasan_pelatihan" name="alasan_pelatihan" style="height: 100px;"></textarea>
+                                <textarea class="form-control" placeholder="Address" id="alasan_pelatihan" name="alasan_pelatihan" style="height: 100px;" required></textarea>
                                 <label for="message-text">Alasan Permohonan Pelatihan <span style="color:red">*</span></label>
                             </div>
                             </div>
@@ -199,20 +217,20 @@
                             </div>
                             <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="waktu_pelatihan" name="waktu_pelatihan" placeholder="Nama Pelatihan">
-                                <label for="nama pelatihan">Waktu Pelatihan</label>
+                                <input type="date" class="form-control" id="waktu_pelatihan" name="waktu_pelatihan" placeholder="Nama Pelatihan" required>
+                                <label for="nama pelatihan">Waktu Pelatihan<span style="color:red">*</span></label>
                             </div>
                             </div>
                             <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="tempat_pelatihan" name="tempat_pelatihan" placeholder="Nama Pelatihan">
-                                <label for="nama pelatihan">Tempat Pelatihan</label>
+                                <input type="text" class="form-control" id="tempat_pelatihan" name="tempat_pelatihan" placeholder="Nama Pelatihan" required>
+                                <label for="nama pelatihan">Tempat Pelatihan<span style="color:red">*</span></label>
                             </div>
                             </div>
                             <div class="col-md-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="biaya_pelatihan" name="biaya_pelatihan" placeholder="Nama Pelatihan">
-                                <label for="nama pelatihan">Biaya Pelatihan</label>
+                                <input type="text" class="form-control" id="biaya_pelatihan" name="biaya_pelatihan" placeholder="Nama Pelatihan" required>
+                                <label for="nama pelatihan">Biaya Pelatihan<span style="color:red">*</span></label>
                             </div>
                             </div>    
                          </form>             
@@ -236,7 +254,7 @@
                               </button>
                           </div>
                           <div class="modal-body">
-                              <form class="kt-form kt-form--label-right form_revisi" action="{{ route('revisi.pelatihan') }}"  method="POST" enctype="multipart/form-data" autocomplete="off">
+                              <form class="kt-form kt-form--label-right form_revisi" action="/pelatihan/revisi"  method="POST" enctype="multipart/form-data" autocomplete="off">
                                   @csrf
                                   <div class="form-group">
                                       <label for="message-text" class="form-control-label">Pesan Revisi Pelatihan <span style="color:red">*</span></label>
@@ -263,7 +281,7 @@
                               </button>
                           </div>
                           <div class="modal-body">
-                              <form class="kt-form kt-form--label-right form_reject" action="{{ route('reject.pelatihan') }}"  method="POST" enctype="multipart/form-data" autocomplete="off">
+                              <form class="kt-form kt-form--label-right form_reject" action="/pelatihan/reject"  method="POST" enctype="multipart/form-data" autocomplete="off">
                                   @csrf
                                   <div class="form-group">
                                       <label for="message-text" class="form-control-label">Pesan Reject Pelatihan <span style="color:red">*</span></label>
@@ -281,13 +299,18 @@
               <!--end::Modal Revisi-->
               
               <!-- Table with stripped rows -->
-              <table class="display dt_pelatihan" id="datatable">
+              <div class="container">
+              <table class="table dt_pelatihan" id="datatable">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
+                    <th scope="col">NRP</th>
+                    <th scope="col">Nama</th>
+                    {{-- <th scope="col">Departemen</th> --}}
+                    <th scope="col">divisi</th>
                     <th scope="col">Jenis Pelatihan</th>
                     <th scope="col">Nama Pelatihan</th>
-                    <th scope="col">Informasi Pelatihan</th>
+                    {{-- <th scope="col">Informasi Pelatihan</th> --}}
                     <th scope="col">Waktu</th>
                     <th scope="col">Lokasi</th>
                     <th scope="col">Biaya</th>
@@ -296,12 +319,17 @@
                   </tr>
                 </thead>
                 <tbody>
+                {{-- //sekar --}}
                 @foreach($pelatihanData as $no => $pelatihan)
                 <tr>
                     <td>{{ $no + 1 }}</td>
+                    <td>{{ $pelatihan->nrp }}</td>
+                    <td>{{ $pelatihan->username}}</td>
+                    {{-- <td>{{ $pelatihan->departemen}}</td> --}}
+                    <td>{{ $pelatihan->divisi}}</td>
                     <td>{{ $pelatihan->jenis }}</td>
                     <td>{{ $pelatihan->nama }}</td>
-                    <td class="truncate-text">{{ $pelatihan->informasi}}</td>
+                    {{-- <td class="truncate-text">{{ $pelatihan->informasi}}</td> --}}
                     <td>{{ $pelatihan->waktu }}</td>
                     <td>{{ $pelatihan->tempat }}</td>
                     <td>{{ $pelatihan->biaya }}</td>
@@ -323,7 +351,15 @@
                         @elseif($pelatihan->kode_status == 8)
                             <span class="badge rounded-pill bg-danger text-start">Reject</span>
                         @elseif($pelatihan->kode_status == 9)
-                            <span class="badge rounded-pill text-bg-warning text-start">Revisi</span>
+                            <span class="badge rounded-pill text-bg-warning text-start">Revisi Atasan</span>
+                        @elseif($pelatihan->kode_status == 10)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi HR:PD</span>
+                        @elseif($pelatihan->kode_status == 11)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Manager</span>
+                        @elseif($pelatihan->kode_status == 12)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Direksi</span>
+                        @elseif($pelatihan->kode_status == 13)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>HRGA</span>
                         @else
                             <span class="badge rounded-pill bg-danger">Unknown Status</span>
                         @endif
@@ -351,6 +387,36 @@
                     <li><a class="dropdown-item send-link" href="#" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-paper-plane"></i> Send</a></li>
                 </ul>
                 @elseif($pelatihan->kode_status == 9 && auth()->user()->id_role == 1)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#pelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $pelatihan->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($pelatihan->kode_status == 10 && auth()->user()->id_role == 2)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#pelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $pelatihan->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($pelatihan->kode_status == 11 && auth()->user()->id_role == 3)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#pelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $pelatihan->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                 @elseif($pelatihan->kode_status == 12 && auth()->user()->id_role == 4)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#pelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $pelatihan->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                 @elseif($pelatihan->kode_status == 13 && auth()->user()->id_role == 5)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#pelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $pelatihan->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($pelatihan->kode_status == 11 && auth()->user()->id_role == 3)
                  <ul class="dropdown-menu">
                     <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
                     <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#pelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
@@ -393,11 +459,12 @@
                 @elseif($pelatihan->kode_status == 7)
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
-                    <li><a class="dropdown-item" href="/pelatihan_pdf"><i class="fa-solid fa-square-poll-vertical"></i> Export PDF</a></li>
+                    <li><a class="dropdown-item bi bi-file-pdf export" data-id="{{ $pelatihan->id }}" href="#"> Export PDF</a></li>
+                    {{-- <li><a class="dropdown-item " href="/pelatihan_pdf" data-id="{{ $pelatihan->id }}"><i class="fa-solid fa-square-poll-vertical"></i> Export PDF</a></li> --}}
                 </ul>
                 @else
                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
                 @endif
                 </div>
               </td>
@@ -405,6 +472,7 @@
               @endforeach
               </tbody>
               </table>
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>
@@ -430,24 +498,20 @@
 <script>
 
 $(document).ready(function() {
-    console.log('DOM telah dimuat.');
 
-    $('#nrp').on('change', function() {
-        console.log('Dropdown NRP Changed');
+    $('#nrp-dropdown').on('change', function() {
         var selectedNrp = $(this).val();
-        console.log('Selected NRP:', selectedNrp);
+    
         $.ajax({
             type: 'POST',
-            url: '/get_user_info',
+            url: '/pelatihan/get_user_info',
             data: { nrp: selectedNrp, _token: '{{ csrf_token() }}' },
             success: function(response) {
-                console.log('Ajax Success:', response);
-
-                // Isi otomatis inputan nama, jabatan, departemen, perusahaan
-                $('#nama').val(response.nama);
-                $('#jabatan').val(response.jabatan);
-                $('#departemen').val(response.departemen);
-                $('#perusahaan').val(response.perusahaan);
+    
+                $('#name-add').val(response.nama);
+                $('#jabatan-add').val(response.jabatan);
+                $('#departemen-add').val(response.departemen);
+                $('#divisi-add').val(response.divisi);
             },
             error: function(error) {
                 console.log('Ajax Error:', error);
@@ -470,7 +534,7 @@ $(document).ready(function() {
     });
 });
 
-//VIEW
+//VIEW sekar
 var pelatihanId; 
 $('.view').click(function() {
     pelatihanId = $(this).data('id');
@@ -484,7 +548,7 @@ $('.view').click(function() {
             $('#viewPelatihanModal').find('#name').text(response.name);
             $('#viewPelatihanModal').find('#jabatan').text(response.jabatan);
             $('#viewPelatihanModal').find('#departemen').text(response.departemen);
-            $('#viewPelatihanModal').find('#perusahaan').text(response.perusahaan);
+            $('#viewPelatihanModal').find('#divisi').text(response.divisi);
             $('#viewPelatihanModal').find('#jenis_pelatihan').text(response.jenis);
             $('#viewPelatihanModal').find('#informasi_pelatihan').text(response.informasi);
             $('#viewPelatihanModal').find('#nama_pelatihan').text(response.nama);
@@ -494,6 +558,11 @@ $('.view').click(function() {
             $('#viewPelatihanModal').find('#waktu_pelatihan').text(response.waktu);
             $('#viewPelatihanModal').find('#tempat_pelatihan').text(response.tempat);
             $('#viewPelatihanModal').find('#biaya_pelatihan').text(response.biaya);
+            $('#viewPelatihanModal').find('#approval').text(response.send_name);
+            $('#viewPelatihanModal').find('#revisi_desc').text(response.revisi_desc);
+            $('#viewPelatihanModal').find('#revisi_by').text(response.revisi_name);
+            $('#viewPelatihanModal').find('#reject_by').text(response.reject_name);
+            $('#viewPelatihanModal').find('#reject_desc').text(response.reject_desc);
     
             $('#viewPelatihanModal').modal('show');
         },
@@ -621,7 +690,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 //SEND
- document.querySelectorAll('.send-link').forEach(function(link) {
+document.querySelectorAll('.send-link').forEach(function(link) {
    link.addEventListener('click', function(event) {
        event.preventDefault();
        var pelatihanId = this.getAttribute('data-id');
@@ -635,7 +704,7 @@ document.addEventListener('DOMContentLoaded', function() {
            cancelButtonText: 'Batal'
        }).then((result) => {
            if (result.isConfirmed) {
-               axios.post('{{ route('send.data') }}', {
+               axios.post('{{ route('send.pelatihan') }}', {
                    pelatihan_id: pelatihanId
                })
                .then(function (response) {
@@ -643,6 +712,8 @@ document.addEventListener('DOMContentLoaded', function() {
                        icon: 'success',
                        title: 'Sukses!',
                        text: response.data.message
+                   }).then(() => {
+                       location.reload();
                    });
                })
                .catch(function (error) {
@@ -659,40 +730,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //EXPORT
 document.querySelectorAll('.export').forEach(function(link) {
-   link.addEventListener('click', function(event) {
-       event.preventDefault();
-       var id = this.getAttribute('data-id');
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+        var id = $(this).data('id');
 
-       Swal.fire({
-           title: 'Konfirmasi',
-           text: 'Export data?',
-           icon: 'warning',
-           showCancelButton: true,
-           confirmButtonText: 'Ya, Kirim!',
-           cancelButtonText: 'Batal'
-       }).then((result) => {
-           if (result.isConfirmed) {
-               axios.post('{{ route('export.data') }}', {
-                   id: id
-               })
-               .then(function (response) {
-                   Swal.fire({
-                       icon: 'success',
-                       title: 'Sukses!',
-                       text: response.data.message
-                   });
-               })
-               .catch(function (error) {
-                   Swal.fire({
-                       icon: 'error',
-                       title: 'Gagal!',
-                       text: 'Terjadi kesalahan saat mengirim data.'
-                   });
-               });
-           }
-       });
-   });
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Export data?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Kirim!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios({
+                    method: 'post',
+                    url: '{{ url('pelatihan/exportoword') }}/' + id,
+                    responseType: 'arraybuffer',
+                })
+                .then(function(response) {
+                    const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'pelatihan.docx';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sukses!',
+                        text: 'File berhasil diunduh.'
+                    });
+                })
+                .catch(function(error) {
+                    // Handle error, e.g., show an error message
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal!',
+                        text: 'Terjadi kesalahan saat mengirim data.'
+                    });
+                });
+            }
+        });
+    });
 });
+
 
 //DELETE
 document.querySelectorAll('.delete').forEach(function(link) {
@@ -709,7 +791,46 @@ document.querySelectorAll('.delete').forEach(function(link) {
            cancelButtonText: 'Batal'
        }).then((result) => {
            if (result.isConfirmed) {
-               axios.post('{{ route('delete.data') }}', {
+               axios.post('{{ route('delete.pelatihan') }}', {
+                   pelatihan_id: pelatihanId
+               })
+               .then(function (response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Sukses!',
+                       text: response.data.message
+                   }).then(() => {
+                       location.reload();
+                   });
+               })
+               .catch(function (error) {
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Gagal!',
+                       text: 'Terjadi kesalahan saat mengirim data.'
+                   });
+               });
+           }
+       });
+   });
+});
+
+//CETAK
+document.querySelectorAll('.cetakpelatihan').forEach(function(link) {
+   link.addEventListener('click', function(event) {
+       event.preventDefault();
+       var pelatihanId = this.getAttribute('data-id');
+
+       Swal.fire({
+           title: 'Konfirmasi',
+           text: 'Export Data?',
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Ya, Kirim!',
+           cancelButtonText: 'Batal'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               axios.get('{{ route('cetak.pelatihan') }}', {
                    pelatihan_id: pelatihanId
                })
                .then(function (response) {
@@ -742,7 +863,9 @@ $('.reject').click(function() {
 
         $.ajax({
             type: 'POST',
-            url: '{{ route('reject.pelatihan') }}?pelatihan_id=' + pelatihanId, 
+            
+            url: '/pelatihan/reject?pelatihan_id=' + pelatihanId,
+
             data: data,
             success: function(response) {
                 Swal.fire({
@@ -750,9 +873,8 @@ $('.reject').click(function() {
                 title: 'Sukses!',
                 text: response.message
                 }).then(() => {
-                    $('#rejectModal').modal('hide');
-                    location.href = location.href;
-                });
+                       location.reload();
+                   });
             },
             error: function(error) {
                 Swal.fire({
@@ -777,7 +899,7 @@ $('.revisi').click(function() {
         // Kirim data dengan permintaan AJAX
         $.ajax({
             type: 'POST',
-            url: '{{ route('revisi.pelatihan') }}?pelatihan_id=' + pelatihanId, 
+            url: '/pelatihan/revisi?pelatihan_id=' + pelatihanId, 
             data: data,
             success: function(response) {
                 Swal.fire({
@@ -785,10 +907,7 @@ $('.revisi').click(function() {
                 title: 'Sukses!',
                 text: response.message
                 }).then(() => {
-                    // Tutup modal reject
-                    $('#revisitModal').modal('hide');
-                    // Reload halaman atau data pelatihan setelah pengguna menekan "OK"
-                    location.href = location.href;
+                       location.reload()
                 });
             },
             error: function(error) {
@@ -803,147 +922,8 @@ $('.revisi').click(function() {
     });
 });
 
-
-
     </script>
-    {{-- <script>
-    // Definisi kelas custom untuk SweetAlert2
-    const customClasses = {
-        popup: 'small-modal',
-        title: 'small-title',
-        htmlContainer: 'small-html',
-        confirmButton: 'small-button',
-        cancelButton: 'small-button'
-    };
-
-    document.getElementById("deletePelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Hapus Data',
-            text: 'Apakah anda yakin akan menghapus data ?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'Deleted!',
-                text: 'Data berhasil dihapus!',
-                icon: 'success',
-                customClass: customClasses
-            };
-
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil dihapus.',
-                icon: 'error',
-                customClass: customClasses
-            };
-
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
-            }
-        });
-    });
-
-    document.getElementById("sendPelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Kirim Data',
-            text: 'Apakah anda yakin akan mengirim data?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'send!',
-                text: 'Data berhasil terkirim!',
-                icon: 'success',
-                customClass: customClasses
-            };
-
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil terkirim.',
-                icon: 'error',
-                customClass: customClasses
-            };
-
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
-            }
-        });
-    });
-
-    document.getElementById("approvePelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Kirim Data',
-            text: 'Apakah anda yakin akan menyetujui pelatihan ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'send!',
-                text: 'Data berhasil terkirim!',
-                icon: 'success',
-                customClass: customClasses
-            };
-
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil terkirim.',
-                icon: 'error',
-                customClass: customClasses
-            };
-
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
-            }
-        });
-    });
-
-    document.getElementById("rejectPelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Reject',
-            text: 'Apakah anda yakin akan menolak pelatihan ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'send!',
-                text: 'Data berhasil terkirim!',
-                icon: 'success',
-                customClass: customClasses
-            };
-
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil terkirim.',
-                icon: 'error',
-                customClass: customClasses
-            };
-
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
-            }
-        });
-    });
-</script> --}}
+   
 
 @endsection
 

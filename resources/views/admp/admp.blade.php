@@ -1,15 +1,15 @@
 @extends('include/mainlayout')
-
+@section('title', 'ADMP')
 @section('content')
     <div class="pagetitle">
-      <h1>ADMP</h1>
+      <h1> ADMP</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Data</li>
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          P<li class="breadcrumb-item active">ADMP</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
       <div class="row">
@@ -17,93 +17,187 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title"><i class="fa-solid fa-square-poll-vertical"></i> ADMP</h5>
-              <button type="button" class="btn bi bi-plus btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#pelatihanModal"> Add ADMP</button>
+              <h5 class="card-title"><i class="fa-solid fa-square-poll-vertical">  ADMP</i></h5>
+              <button type="button" class="btn bi bi-plus btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#admpModal"> Add ADMP</button>
               <br><br>
+
+              <!-- Modal View -->
+                <div class="modal fade modal-view" id="viewadmpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-6" id="btn-view">View admp</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="admp-details">
+                                    <div class="detail">
+                                        <label for="nrp">NRP :</label>
+                                        <span id="nrp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="name">Nama:</label>
+                                        <span id="name"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="jabatan">Jabatan:</label>
+                                        <span id="jabatan"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="departemen">Departemen:</label>
+                                        <span id="departemen"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="divisi">divisi:</label>
+                                        <span id="divisi"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="nama_admp">Nama admp </label>
+                                        <span id="nama_admp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="jenis_admp">Jenis admp:</label>
+                                        <span id="jenis_admp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="informasi_admp">Informasi admp:</label>
+                                        <span id="informasi_admp"></span>
+                                    </div>
+                                   
+                                    <div class="detail">
+                                        <label for="waktu_admp">Waktu admp :</label>
+                                       <span id="waktu_admp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="tempat_admp">Tempat admp :</label>
+                                        <span id="tempat_admp"></span>
+                                    </div>
+                                    
+                                    <div class="detail">
+                                        <label for="aprroval">Aprroval by :</label>
+                                        <span id="approval"> </span>
+                                    </div>
+                                     <div class="detail">
+                                        <label for="revisi_by">Revisi by:</label>
+                                        <span id="revisi_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="revisi_desc">Keterangan Revisi :</label>
+                                        <span id="revisi_desc"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_by">Reject by :</label>
+                                        <span id="reject_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_desc">Keterangan Reject :</label>
+                                        <span id="reject_desc"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal View -->
+
               <!-- Modal Add -->
-                <div class="modal fade modalpelatihan" id="pelatihanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade modal_add" id="admpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mode="add">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add ADMP</h1>
+                        <h1 class="modal-title fs-5" id="btn-add">Add admp</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                         <form class="row g-3">
+                        {{-- <input type="hidden" name="_token" value="{{{ csrf_token() }}}" /> --}}
+                        <input type="hidden" name="id" id="id" />
+                        <input type="hidden" name="action_flag" id="action_flag" />
+                        <input type="hidden" name="tgl_mulai" id="tgl_mulai" />
+                        {{-- <input type="hidden" name="last_seq" id="last_seq" value="{{{$last_seq}}}" /> --}}
+
+                        <form class="row g-3 needs-validation" method="POST" action="/admp/create">
+                        @csrf
                             <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingEmail" placeholder="Your Email">
-                                <label for="floatingEmail">NIK</label>
+                                <select class="form-control" id="nrp-dropdown" name="nrp-dropdown">
+                                    <option value="" selected>Select NRP</option>
+                                    @foreach ($nrpOptions as $nrp)
+                                        <option value="{{ $nrp->nrp }}">{{ $nrp->nrp }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="nrp">NRP <span style="color:red">*</span></label>
                             </div>
+
                             </div>
                             <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Nama</label>
+                                <input type="text" readonly class="form-control" id="name-add" name="name-add" placeholder="Nama">
+                                <label for="message-text">Nama </label> 
                             </div>
                             </div>
                             <div class="col-md-4">
                              <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Jabatan</label>
+                                <input type="text" readonly class="form-control" id="jabatan-add" name="jabatan-add" placeholder="Jabatan">
+                                <label for="message-text">Jabatan </label>
                             </div>
                             </div>
                             <div class="col-md-4">
                              <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">Departemen</label>
+                                <input type="text" readonly class="form-control" id="departemen-add" name="departemen-add" placeholder="Password">
+                                <label for="message-text">Departemen </label>
                             </div>
                             </div>
                              <div class="col-md-4">
                              <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingPassword" placeholder="Password">
-                                <label for="floatingPassword">PT.</label>
+                                <input type="text" readonly class="form-control" id="divisi-add" name="divisi-add" placeholder="Password">
+                                <label for="message-text">divisi</label>
                             </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                             <div class="form-floating">
+                                <input type="date" class="form-control" id="start_admp" name="start_admp" placeholder="Start admp" required>
+                                <label for="nama admp">START DATE<span style="color:red">*</span></label>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                             <div class="form-floating">
+                                <input type="date" class="form-control" id="finis_admp" name="finis_admp" placeholder="Finis admp" required>
+                                <label for="nama admp">FINIS DATE<span style="color:red">*</span></label>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
                             <div class="form-floating">
-                                <select class="form-select" id="floatingSelect" aria-label="State">
-                                <option selected>- Pilih -</option>
-                                <option value="1">Oregon</option>
-                                <option value="2">DC</option>
-                                </select>
-                                <label for="floatingSelect">Jenis Job Assignment</label>
+                                <textarea class="form-control" id="result_description" name="result_description" placeholder="result_description" required style="height: 100px;"></textarea>
+                                <label for="Result Description"> Result Description <span style="color:red">*</span></label>
                             </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"></textarea>
-                                <label for="floatingTextarea">Informasi Job Assignment :</label>
+                                <textarea class="form-control" id="target_description" name="target_description" placeholder="target_description" required style="height: 100px;"></textarea>
+                                <label for="Target Description"> Target Description <span style="color:red">*</span></label>
                             </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Address" id="floatingTextarea" style="height: 100px;"></textarea>
-                                <label for="floatingTextarea">Deskripsi Job Assignment :</label>
+                                <textarea class="form-control" class="form-control" id="short_description" name="short_description" placeholder="short_description" required style="height: 100px;"></textarea>
+                                <label for="nama_admp_add"> Short Descriptiom <span style="color:red">*</span></label>
                             </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="namaPelatihan" placeholder="Nama Pelatihan">
-                                <label for="nama pelatihan">Waktu Pelaksanan</label>
+                                <textarea class="form-control" placeholder="ket_admp" id="ket_admp" name="ket_admp" style="height: 100px;"></textarea>
+                                <label for="Keterangan">Keterangan </span></label>
                             </div>
+                            
                             </div>
-                            <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="namaPelatihan" placeholder="Nama Pelatihan">
-                                <label for="nama pelatihan">Tempat</label>
-                            </div>
-                            </div>
-                            <div class="col-md-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="namaPelatihan" placeholder="Nama Pelatihan">
-                                <label for="nama pelatihan">Biaya</label>
-                            </div>
-                            </div>    
+                           
                          </form>             
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" id="btn-yes-add">Save</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                     </div>
@@ -111,150 +205,230 @@
                 </div>
               {{-- End Modal Add --}}
 
-              <!--begin::Modal Cancel-->
+              <!--begin::Modal Revisi-->
               <div class="modal fade modal_revisi" id="revisiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                       <div class="modal-content">
                           <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Revisi Pelatihan</h5>
+                              <h5 class="modal-title" id="exampleModalLabel">Revisi admp</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </button>
                           </div>
                           <div class="modal-body">
-                              <form class="kt-form kt-form--label-right form_revisi" action="" method="post" enctype="multipart/form-data" autocomplete="off">
+                              <form class="kt-form kt-form--label-right form_revisi" action="{{ route('revisi.admp') }}"  method="POST" enctype="multipart/form-data" autocomplete="off">
+                                  @csrf
                                   <div class="form-group">
-                                      <label for="message-text" class="form-control-label">Pesan Revisi Pelatihan <span style="color:red">*</span></label>
-                                      <textarea class="form-control" id="comp_cancel" name="comp_cancel" rows="8"></textarea>
+                                      <label for="message-text" class="form-control-label">Pesan Revisi admp <span style="color:red">*</span></label>
+                                      <textarea class="form-control" id="revisi" name="revisi" rows="8"></textarea>
                                   </div>
                               </form>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary" id="btn-yes-cancel">Kirim</button>
+                              <button type="submit" class="btn btn-primary" id="btn-yes-revisi">Kirim</button>
                           </div>
                       </div>
                   </div>
               </div>
-              <!--end::Modal Cancel-->
+              <!--end::Modal Revisi-->
+
+              <!--begin::Modal Reject-->
+              <div class="modal fade modal_reject" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Reject admp</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <form class="kt-form kt-form--label-right form_reject" action="{{ route('reject.admp') }}"  method="POST" enctype="multipart/form-data" autocomplete="off">
+                                  @csrf
+                                  <div class="form-group">
+                                      <label for="message-text" class="form-control-label">Pesan Reject admp <span style="color:red">*</span></label>
+                                      <textarea class="form-control" id="reject" name="reject" rows="8"></textarea>
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary" id="btn-yes-reject">Kirim</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--end::Modal Revisi-->
+              
               <!-- Table with stripped rows -->
-              <table class="display" id="datatable">
+              <div class="container">
+              <table class="table dt_admp" id="datatable">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Jenis ADMP</th>
-                    <th scope="col">Deskripsi ADMP</th>
-                    <th scope="col">PT.</th>
-                    <th scope="col">Waktu</th>
-                    <th scope="col">Lokasi</th>
-                    <th scope="col">Biaya</th>
+                    <th scope="col">No</th>
+                    <th scope="col">NRP</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">Finis Date</th>
+                    <th scope="col">Nama admp</th>
+                    <th scope="col">Result Description</th>
+                    <th scope="col">Target Description</th>
+                    <th scope="col">Result Description</th>
                     <th scope="col">Status</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>MA</td>
-                    <td>Palembang</td>
-                    <td>2016-05-25</td>
-                    <td>450.000</td>
-                    <td><span class="badge rounded-pill text-bg-primary">Create</span></td>
-                    <td>    
-                        <div class="dropdown">
-                        <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-expand"></i>View</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
-                            <li><a class="dropdown-item" href="#" id="deletePelatihan"><i class="fa-solid fa-trash"></i>Delete</a></li>
-
-                            <li><a class="dropdown-item" href="#" id="sendPelatihan"><i class="fa-regular fa-paper-plane"></i>Send</a></li>
-                        </ul>
-                        </div>
+                {{-- //sekar --}}
+                @foreach($admpData as $no => $admp)
+                <tr>
+                    <td>{{ $no + 1 }}</td>
+                    <td>{{ $admp->NRP }}</td>
+                    <td>{{ $admp->NAMA}}</td>
+                    <td>{{ $admp->ADMP_JA_START_DATE}}</td>
+                    <td>{{ $admp->ADMP_JA_FINISH_DATE }}</td>
+                    <td>{{ $admp->JA_RESULT_DESCRIPTION }}</td>
+                    <td>{{ $admp->JA_TARGET_DESCRIPTION }}</td>
+                    <td>{{ $admp->JA_SHORT_DESCRIPTION }}</td>
+                    <td>{{ $admp->keterangan }}</td>
+                    <td>
+                        @if($admp->status == 1)
+                            <span class="badge rounded-pill text-bg-primary">Create</span>
+                        @elseif($admp->status == 2)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending Atasan</span>
+                        @elseif($admp->status == 3)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending HR:PD</span>
+                        @elseif($admp->status == 4)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Manager</span>
+                        @elseif($admp->status == 5)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Direksi</span>
+                        @elseif($admp->status == 6)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>HRGA</span>
+                        @elseif($admp->status == 7)
+                            <span class="badge rounded-pill bg-success text-light">Done</span>
+                        @elseif($admp->status == 8)
+                            <span class="badge rounded-pill bg-danger text-start">Reject</span>
+                        @elseif($admp->status == 9)
+                            <span class="badge rounded-pill text-bg-warning text-start">Revisi Atasan</span>
+                        @elseif($admp->status == 10)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi HR:PD</span>
+                        @elseif($admp->status == 11)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Manager</span>
+                        @elseif($admp->status == 12)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Direksi</span>
+                        @elseif($admp->status == 13)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>HRGA</span>
+                        @else
+                            <span class="badge rounded-pill bg-danger">Unknown Status</span>
+                        @endif
                     </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>BDMS</td>
-                    <td>Palembang</td>
-                    <td>2016-05-25</td>
-                    <td>450.000</td>
-                    <td><span class="badge rounded-pill bg-warning text-dark">Revisi</span></td>
-                     <td>    
-                        <div class="dropdown">
-                        <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-expand"></i>View</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash"></i>Delete</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-paper-plane"></i>Send</a></li>
-                        </ul>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>MA</td>
-                    <td>Palembang</td>
-                    <td>2016-05-25</td>
-                    <td>450.000</td>
-                    <td><span class="badge rounded-pill text-bg-info text-start">Pending HRGA<br>Manager</span></td>
-                     <td>    
-                        <div class="dropdown">
-                        <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-expand"></i>View</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-regular fa-paper-plane"></i>Send</a></li>
-                            <li><a class="dropdown-item"  href="#" id="approvePelatihan"><i class="fa-regular fa-square-check"></i>Approve</a></li>
-                           <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal"><i class="fa-regular fa-message"></i>Revisi</a></li>
-                            <li><a class="dropdown-item"  href="#" id="rejectPelatihan"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
-                        </ul>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>BDMS</td>
-                    <td>Palembang</td>
-                    <td>2016-05-25</td>
-                    <td>450.000</td>
-                    <td><span class="badge rounded-pill bg-success">Done</span></td>
-                     <td>    
-                        <div class="dropdown">
-                        <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-expand"></i>View</a></li>
-                        </ul>
-                        </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>Palembang</td>
-                    <td>2016-05-25</td>
-                    <td>450.000</td>
-                    <td><span class="badge rounded-pill text-bg-danger">Reject</span></td>
-                    <td>    
-                        <div class="dropdown">
-                        <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-expand"></i>View</a></li>
-                        </ul>
-                        </div>
-                    </td>
-                  </tr>
-                </tbody>
+                    <td>  
+                     
+                <div class="dropdown">
+                <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                @if(auth()->user()->id_role == 0)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-paper-plane"></i> Send</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                    <li><a class="dropdown-item bi bi-file-pdf export" data-id="{{ $admp->PID }}" href="#"> Export PDF</a></li>               
+                </ul>
+                @elseif($admp->kode_status == 1 && auth()->user()->id_role == 1)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-paper-plane"></i> Send</a></li>
+                </ul>
+                @elseif($admp->kode_status == 9 && auth()->user()->id_role == 1)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($admp->kode_status == 10 && auth()->user()->id_role == 2)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($admp->kode_status == 11 && auth()->user()->id_role == 3)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                 @elseif($admp->kode_status == 12 && auth()->user()->id_role == 4)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                 @elseif($admp->kode_status == 13 && auth()->user()->id_role == 5)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($admp->kode_status == 11 && auth()->user()->id_role == 3)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#admpModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $admp->PID }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($admp->kode_status == 2 && auth()->user()->id_role == 2)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>                </ul>
+                @elseif($admp->kode_status == 3 && auth()->user()->id_role == 3)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($admp->kode_status == 4 && auth()->user()->id_role == 4)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($admp->kode_status == 5 && auth()->user()->id_role == 5)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($admp->kode_status == 6 && auth()->user()->id_role == 6)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $admp->PID }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                   <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $admp->PID }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($admp->kode_status == 7)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item" href="/admp_pdf"><i class="fa-solid fa-square-poll-vertical"></i> Export PDF</a></li>
+                </ul>
+                @else
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"><i class="fa fa-expand"></i>View</a></li>
+                @endif
+                </div>
+              </td>
+              </tr>
+              @endforeach
+              </tbody>
               </table>
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>
@@ -263,146 +437,391 @@
         </div>
       </div>
     </section>
-
+  
+    {{-- <script src="app/javascript/admp.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <script>
-    // Definisi kelas custom untuk SweetAlert2
-    const customClasses = {
-        popup: 'small-modal',
-        title: 'small-title',
-        htmlContainer: 'small-html',
-        confirmButton: 'small-button',
-        cancelButton: 'small-button'
-    };
+        $(document).ready(function() {
+        $('#datatable').DataTable();});
+    </script>
 
-    document.getElementById("deletePelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Hapus Data',
-            text: 'Apakah anda yakin akan menghapus data ?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'Deleted!',
-                text: 'Data berhasil dihapus!',
-                icon: 'success',
-                customClass: customClasses
-            };
+<script>
 
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil dihapus.',
-                icon: 'error',
-                customClass: customClasses
-            };
+$(document).ready(function() {
 
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
+    $('#nrp-dropdown').on('change', function() {
+        var selectedNrp = $(this).val();
+    
+        $.ajax({
+            type: 'POST',
+            url: 'admp/get_user_info',
+            data: { nrp: selectedNrp, _token: '{{ csrf_token() }}' },
+            success: function(response) {
+    
+                $('#name-add').val(response.nama);
+                $('#jabatan-add').val(response.jabatan);
+                $('#departemen-add').val(response.departemen);
+                $('#divisi-add').val(response.divisi);
+            },
+            error: function(error) {
+                console.log('Ajax Error:', error);
             }
         });
     });
+});
 
-    document.getElementById("sendPelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Kirim Data',
-            text: 'Apakah anda yakin akan mengirim data?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'send!',
-                text: 'Data berhasil terkirim!',
+
+// Jumlah karakter data tabel
+$(document).ready(function() {
+    $('.truncate-text').each(function() {
+        var maxLength = 100; 
+        var originalText = $(this).text();
+
+        if (originalText.length > maxLength) {
+            var truncatedText = originalText.substring(0, maxLength) + '...';
+            $(this).text(truncatedText);
+        }
+    });
+});
+
+//VIEW sekar
+var admPID; 
+$('.view').click(function() {
+    admPID = $(this).data('id');
+     $('#viewadmpModal').attr('data-mode', 'edit');
+    
+    $.ajax({
+        type: 'GET',
+        url: '{{ url('/admp/get') }}/' + admPID,
+        success: function(response) {
+            $('#viewadmpModal').find('#nrp').text(response.nrp);
+            $('#viewadmpModal').find('#name').text(response.name);
+            $('#viewadmpModal').find('#jabatan').text(response.jabatan);
+            $('#viewadmpModal').find('#departemen').text(response.departemen);
+            $('#viewadmpModal').find('#divisi').text(response.divisi);
+            $('#viewadmpModal').find('#jenis_admp').text(response.jenis);
+            $('#viewadmpModal').find('#informasi_admp').text(response.informasi);
+            $('#viewadmpModal').find('#nama_admp').text(response.nama);
+            $('#viewadmpModal').find('#waktu_admp').text(response.waktu);
+            $('#viewadmpModal').find('#tempat_admp').text(response.tempat);
+            $('#viewadmpModal').find('#biaya_admp').text(response.biaya);
+            $('#viewadmpModal').find('#approval').text(response.send_name);
+            $('#viewadmpModal').find('#revisi_desc').text(response.revisi_desc);
+            $('#viewadmpModal').find('#revisi_by').text(response.revisi_name);
+            $('#viewadmpModal').find('#reject_by').text(response.reject_name);
+            $('#viewadmpModal').find('#reject_desc').text(response.reject_desc);
+    
+            $('#viewadmpModal').modal('show');
+        },
+        error: function(error) {
+            // Tampilkan pesan kesalahan jika diperlukan
+        }
+    });
+});
+
+//EDIT
+var admPID; 
+$('.edit').click(function() {
+    admPID = $(this).data('id');
+     $('#admpModal').attr('data-mode', 'edit');
+    
+    $.ajax({
+        type: 'GET',
+        url: '{{ url('/admp/get') }}/' + admPID,
+        success: function(response) {
+           
+            $('#admpModal').find('#jenis_admp').val(response.jenis);
+            $('#admpModal').find('#informasi_admp').val(response.informasi);
+            $('#admpModal').find('#nama_admp').val(response.nama);
+            $('#admpModal').find('#waktu_admp').val(response.waktu);
+            $('#admpModal').find('#tempat_admp').val(response.tempat);
+            $('#admpModal').find('#biaya_admp').val(response.biaya);
+        
+            $('#admpModal').attr('data-mode', 'edit');
+            $('#admpModal').modal('show');
+        },
+        error: function(error) {
+            // Tampilkan pesan kesalahan jika diperlukan
+        }
+    });
+});
+
+$(document).ready(function() {
+$('#btn-yes-add').click(function() {
+    var mode = $('#admpModal').data('mode');
+    
+    if (mode === 'add') {
+        $.ajax({
+            type: 'POST',
+            url: '{{ url('/admp/create') }}',
+            data: $('form').serialize(),
+            success: function(response) {
+                if (response.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'admp berhasil di tambahkan!',
+                    }).then(() => {
+                       location.reload()
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'admp gagal di tambahkan.',
+                    });
+                }
+            },
+        });
+    } else if (mode === 'edit') {  
+        $.ajax({
+            type: 'PUT',
+            url: '{{ url('/admp/myedit') }}/' + admPID,
+            data: $('form').serialize() + '&admp_id=' + admPID,
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Display a SweetAlert success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'admp berhasil di edit!',
+                    }).then(() => {
+                        location.reload()
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'admp gagal di edit.',
+                    });
+                }
+            },
+        });
+    }
+
+    $('#admpModal').modal('hide');
+    
+});
+});
+
+
+function getStatusText(kodeStatus) {
+    if (kode_status === 1) {
+        return '<span class="badge rounded-pill text-bg-primary">Create</span>';
+    } else if (kode_status === 2) {
+        return '<span class="badge rounded-pill bg-warning text-dark">Revisi</span>';
+    } else if (kode_status === 3) {
+        return '<span class="badge rounded-pill text-bg-info text-start">Pending HRGA Manager</span>';
+    } else {
+        return 'Unknown Status';
+    }
+}
+
+// Function untuk mengganti status di tabel
+function replaceStatusInTable() {
+    var rows = document.querySelectorAll('.dt_admp tbody tr');
+    rows.forEach(function(row) {
+        var kodeStatus = row.querySelector('td:nth-child(8)').textContent; // Ambil kode_status dari kolom ke-8
+        var statusText = getStatusText(kodeStatus); // Dapatkan teks status
+        row.querySelector('td:nth-child(8)').innerHTML = statusText; // Ganti isi kolom dengan teks status yang sesuai
+    });
+}
+
+// Panggil fungsi untuk mengganti status setelah tabel dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    replaceStatusInTable();
+});
+
+
+//SEND
+document.querySelectorAll('.send-link').forEach(function(link) {
+   link.addEventListener('click', function(event) {
+       event.preventDefault();
+       var admPID = this.getAttribute('data-id');
+
+       Swal.fire({
+           title: 'Konfirmasi',
+           text: 'Yakin ingin mengirim data?',
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Ya, Kirim!',
+           cancelButtonText: 'Batal'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               axios.post('{{ route('send.admp') }}', {
+                   admp_id: admPID
+               })
+               .then(function (response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Sukses!',
+                       text: response.data.message
+                   }).then(() => {
+                       location.reload();
+                   });
+               })
+               .catch(function (error) {
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Gagal!',
+                       text: 'Terjadi kesalahan saat mengirim data.'
+                   });
+               });
+           }
+       });
+   });
+});
+
+//EXPORT
+document.querySelectorAll('.export').forEach(function(link) {
+   link.addEventListener('click', function(event) {
+       event.preventDefault();
+       var id = this.getAttribute('data-id');
+
+       Swal.fire({
+           title: 'Konfirmasi',
+           text: 'Export data?',
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Ya, Kirim!',
+           cancelButtonText: 'Batal'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               axios.post('{{ route('export.admp') }}', {
+                   id: id
+               })
+               .then(function (response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Sukses!',
+                       text: response.data.message
+                   });
+               })
+               .catch(function (error) {
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Gagal!',
+                       text: 'Terjadi kesalahan saat mengirim data.'
+                   });
+               });
+           }
+       });
+   });
+});
+
+//DELETE
+document.querySelectorAll('.delete').forEach(function(link) {
+   link.addEventListener('click', function(event) {
+       event.preventDefault();
+       var admPID = this.getAttribute('data-id');
+
+       Swal.fire({
+           title: 'Konfirmasi',
+           text: 'Apakah Anda yakin akan menghapus data ini?',
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Ya, Kirim!',
+           cancelButtonText: 'Batal'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               axios.post('{{ route('delete.admp') }}', {
+                   admp_id: admPID
+               })
+               .then(function (response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Sukses!',
+                       text: response.data.message
+                   }).then(() => {
+                       location.reload();
+                   });
+               })
+               .catch(function (error) {
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Gagal!',
+                       text: 'Terjadi kesalahan saat mengirim data.'
+                   });
+               });
+           }
+       });
+   });
+});
+
+//REJECT
+$('.reject').click(function() {
+    var admPID = $(this).data('id'); 
+
+    $('#btn-yes-reject').click(function() {
+        var data = $('.form_reject').serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('reject.admp') }}?admp_id=' + admPID, 
+            data: data,
+            success: function(response) {
+                Swal.fire({
                 icon: 'success',
-                customClass: customClasses
-            };
-
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil terkirim.',
-                icon: 'error',
-                customClass: customClasses
-            };
-
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
+                title: 'Sukses!',
+                text: response.message
+                }).then(() => {
+                       location.reload();
+                   });
+            },
+            error: function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan saat mengirim revisi.'
+                });
             }
         });
     });
+});
 
-    document.getElementById("approvePelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Kirim Data',
-            text: 'Apakah anda yakin akan menyetujui pelatihan ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'send!',
-                text: 'Data berhasil terkirim!',
+
+//REVISI
+$('.revisi').click(function() {
+    var admPID = $(this).data('id'); // Ambil ID admp dari atribut data-id
+    
+    $('#btn-yes-revisi').click(function() {
+        // Ambil data dari formulir, termasuk pesan revisi
+        var data = $('.form_revisi').serialize();
+
+        // Kirim data dengan permintaan AJAX
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('revisi.admp') }}?admp_id=' + admPID, 
+            data: data,
+            success: function(response) {
+                Swal.fire({
                 icon: 'success',
-                customClass: customClasses
-            };
-
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil terkirim.',
-                icon: 'error',
-                customClass: customClasses
-            };
-
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
+                title: 'Sukses!',
+                text: response.message
+                }).then(() => {
+                       location.reload()
+                });
+            },
+            error: function(error) {
+                // Tampilkan SweetAlert kesalahan
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan saat mengirim revisi.'
+                });
             }
         });
     });
+});
 
-    document.getElementById("rejectPelatihan").addEventListener("click", function() {
-        Swal.fire({
-            title: 'Reject',
-            text: 'Apakah anda yakin akan menolak pelatihan ini?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Ya!',
-            cancelButtonText: 'Tidak',
-            customClass: customClasses
-        }).then((result) => {
-            const successMessage = {
-                title: 'send!',
-                text: 'Data berhasil terkirim!',
-                icon: 'success',
-                customClass: customClasses
-            };
-
-            const errorMessage = {
-                title: 'Cancelled',
-                text: 'Data tidak berhasil terkirim.',
-                icon: 'error',
-                customClass: customClasses
-            };
-
-            if (result.isConfirmed) {
-                Swal.fire(successMessage);
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire(errorMessage);
-            }
-        });
-    });
-</script>
+    </script>
+   
 
 @endsection
 

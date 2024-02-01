@@ -22,45 +22,40 @@ class UserController extends Controller
         return view('/administration/login'); 
     }
 
+    public function index()
+    {
+        $userData = $this->UserRepository->getData();
+
+        return view('/administration/user', [
+            'userData' => $userData,
+        ]);
+    }
+
+    public function profile()
+    {
+        $userData = $this->UserRepository->getData();
+
+        return view('/administration/profile', [
+            'userData' => $userData,
+        ]);
+    }
+
     public function loginku(Request $request)
     {
 
-        // dd($request);
         $this->validate($request, [
-            'email' => 'required|email',
+            'username' => 'required|string',
             'password' => 'required|string',
         ]);
-
-        // $hashedPassword = Hash::make($request->input('password'));
-        // //$credentials = $request->only('email', 'password');
-        // $credentials = [
-        //     'email' => $request->input('email'),
-        //     'password' => $hashedPassword,
-        // ];
-        // // dd($credentials);
-        
-        // if (Auth::attempt($credentials)) {
-        //     // Pengguna berhasil masuk
-        //     return redirect('/dashboard');
-        // } else {
-        //     // Gagal masuk, kembali ke halaman login dengan pesan kesalahan
-        //     return back()->withErrors(['email' => 'Email atau password salah.']);
-        // }
      
-    $credentials = $request->only('email', 'password');
-    //dd($credentials);
-    if (Auth::attempt($credentials)) {
-        // Pengguna berhasil masuk
-        
-        return redirect('/dashboard');
+        $credentials = $request->only('username', 'password');
+        //dd($credentials);
+        if (Auth::attempt($credentials)) {   
+            return redirect('/dashboard');
+        } else {
+            return back()->withErrors(['password' => 'username atau password salah.']);
+        }
 
-    } else {
-        // Gagal masuk, kembali ke halaman login dengan pesan kesalahan
-        return back()->withErrors(['email' => 'Email atau password salah.']);
-    }
-
-
-        
     }
 
     public function showRegistrationForm()
@@ -70,19 +65,94 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:users',
-        //     'username' => 'required|unique:users',
+        $data = $request->except('_token');
+        //$data = $request->all();
+        //dd($data);
+        $result = $this->UserRepository->createUser($data);
+    
+        $data = $request->all();
+        
+        if ($result) {
+            return Response::json(['status' => 'success']);
+        } else {
+            return Response::json(['status' => 'error']);
+        }
+        
+    }
+
+    public function delete(Request $request)
+    {
+
+        $selectedUserId = $request->input('user_id');
+    
+        $result = $this->UserRepository->delete($selectedUserId);
+
+        return response()->json(['message' => $result]);
+    }
+
+    public function getEdit($id)
+    {
+        $user = $this->UserRepository->getById($id);
+
+        return response()->json($user);
+    }
+
+    public function edit($id, Request $request)
+    {
+        $data = $request->all();
+     
+        $result = $this->UserRepository->edit($data, $id);
+        
+        if ($result) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+    }
+
+    public function editProfile($id, Request $request)
+    {
+        $data = $request->all();
+        //dd($data);
+        $result = $this->UserRepository->editProfile($data, $id);
+        
+        if ($result) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        // Validasi data
+        // $request->validate([
         //     'password' => 'required|min:6',
+        //     'newpassword' => 'required|min:6|confirmed',
         // ]);
 
-        $data = $request->all();
-        //$data['password'] = Hash::make($data['password']); // Hash the password
-        // dd($data);
-        $user = $this->UserRepository->createUser($data);
-    
-        return redirect('/')->with('success', 'Registrasi berhasil! Silakan masuk.');
+        $userId = $request->input('user_id');
+        $currentPassword = $request->input('password');
+        $newPassword = $request->input('newpassword');
 
+        // Verifikasi password saat ini
+        if (Hash::check($currentPassword, $this->UserRepository->getCurrentUserPassword($userId))) {
+            // Verifikasi bahwa password baru sesuai dengan konfirmasi password
+            if ($newPassword === $request->input('newpassword_confirmation')) {
+                // Password baru sesuai, lanjutkan dengan perubahan password
+                $result = $this->UserRepository->changePassword($userId, bcrypt($newPassword));
+
+                if ($result) {
+                    return response()->json(['status' => 'success']);
+                } else {
+                    return response()->json(['status' => 'error', 'message' => 'Failed to change password']);
+                }
+            } else {
+                return response()->json(['status' => 'error', 'message' => 'New password confirmation does not match']);
+            }
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Current password is incorrect']);
+        }
     }
+
 }

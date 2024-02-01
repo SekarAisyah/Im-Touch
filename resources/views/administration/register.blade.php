@@ -58,7 +58,7 @@
 
                   <form class="row g-3 needs-validation" method="POST" action="{{ route('register') }}">
                   
-                    <img class = "form-login" src="assets/img/Logo_Mi_Touch.jpg" alt="">
+                    <img class = "form-login" src="assets/img/mitrabaralogo.jpg" alt="">
                     <div class="col-10 form-input">
                       <input type="text" name="name" class="form-control" id="name" required placeholder="Your Name">
                       <div class="invalid-feedback">Please enter your name!</div>

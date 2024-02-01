@@ -29,6 +29,12 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
 </head>
 
 <body class="login">
@@ -56,23 +62,36 @@
                 <div class="">
                   <form class="row g-3 needs-validation" method="POST" action='/'>
                   @csrf
-                    <img class = "form-login" src="assets/img/Logo_Mi_Touch.jpg" alt="">
-                    <div class="col-10 form-input">
+                    <img class = "form-login" src="assets/img/mitrabaralogo.jpg" alt="">
+                    {{-- <div class="col-10 form-input">
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="email" class="form-control" id="email" placeholder="Email">
                         @error('email')
-        <p class="text-danger">{{ $message }}</p>
-    @enderror
+                          <p class="text-danger">{{ $message }}</p>
+                        @enderror
                       </div>
+                    </div> --}}
+
+                    <div class="col-10 form-input">
+                      <input type="text" name="username" class="form-control" id="username" placeholder="username">
+                      <div class="invalid-feedback">Please enter your username!</div>
+                      @error('username')
+                          <p class="text-danger">{{ $message }}</p>
+                      @enderror
                     </div>
 
                     <div class="col-10 form-input">
-                      <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                          <div class="input-group">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                <i class="bi bi-eye-fill"></i>
+                            </button></div>
+                      
                       <div class="invalid-feedback">Please enter your password!</div>
                       @error('password')
-        <p class="text-danger">{{ $message }}</p>
-    @enderror
+                          <p class="text-danger">{{ $message }}</p>
+                      @enderror
                     </div>
 {{-- 
                     <div class="col-12">
@@ -83,9 +102,7 @@
                     </div> --}}
                     <div class="col-10 form-input">
                     <button class="btn btn-primary w-100 btn-sm form-a" type="submit">Sign in</a></button> 
-                    <div class="col-10 form-input">
-                      <p class="small mb-0">Don't have account? <a href="/register">Create an account</a></p>
-                    </div>
+                    
                   </form>
 
                 </div>
@@ -113,6 +130,23 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script>
+   $(document).ready(function() {
+        $('#togglePassword').on('click', function() {
+            var passwordField = $('#password');
+            var passwordFieldType = passwordField.attr('type');
+
+            if (passwordFieldType === 'password') {
+                passwordField.attr('type', 'text');
+                $(this).html('<i class="bi bi-eye-slash"></i>');
+            } else {
+                passwordField.attr('type', 'password');
+                $(this).html('<i class="bi bi-eye"></i>');
+            }
+        });
+    });
+  </script>
 
 </body>
 

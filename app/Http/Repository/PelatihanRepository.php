@@ -7,144 +7,24 @@ use function Ramsey\Uuid\v1;
 
 Class pelatihanRepository
 {
-    // public $database = 'mysql';
-    // public $table = 'm_pelatihan';
-    // // public $table_file = 'm_opini_kepatuhan_file';
-    // // public $primary_key = 'menu_id';
-    // public $event = 'Pelatihan';
-
-
-    // //=============================================== POSTDATA ===============================================
-    // public function Add($data){
-    //     // dd($data);
-    //     $proses = DB::connection($this->database)->table($this->table)->insertGetId(
-    //             array(
-    //                 'jenisPelatihan' => $data['jenis_pelatihan'],
-    //                 'informasi_pelatihan' => $data['informasi_pelatihan'],
-    //                 'nama_pelatihan' => $data['nama_pelatihan'],
-    //                 'narasumber' => $data['unit_tglmemo'],
-    //                 'alasan_pelatihan' => $data['tgl_mulai'],
-    //                 'sharing_pelatihan' => $data['id_peraturan_eks_terkait'],
-    //                 'waktu_pelatihan' => $data['judul_peraturan_eks_terkait'],
-    //                 'tempat_pelatihan' => $data['checklist'],
-    //                 'biaya_pelatihan' => $data['status_opini'],
-    //                 'kode_status' => $data['kode_status'],
-    //                 // 'created_by' => $data['id_user'],
-    //                 // 'created_name' => $data['nama_user'],
-    //                 'created_on' => date('Y-m-d H:i:s'),
-    //             )
-    //         );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Pelatihan Berhasil Disimpan', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Pelatihan Gagal Disimpan', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function Edit($data)
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $proses = DB::connection($this->database)->table($this->table)->where('id', $data['id'])
-    //     ->update(
-    //         array(
-    //             'id_jenis_proposal' => $data['id_jenis_proposal'],
-    //             'unit_perihal' => $data['unit_perihal'],
-    //             'unit_nomor_memo' => $data['unit_nomor_memo'],
-    //             'unit_tglmemo' => $data['unit_tglmemo'],
-    //             'id_peraturan_eks_terkait' => $data['id_peraturan_eks_terkait'],
-    //             'judul_peraturan_eks_terkait' => $data['judul_peraturan_eks_terkait'],
-    //             'checklist' => $data['checklist'],
-    //             'updated_by' => $data['id_user'],
-    //             'updated_name' => $data['nama_user'],
-    //             'updated_on' => date('Y-m-d H:i:s'),
-    //         )
-    //     );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Opini Kepatuhan Berhasil Diubah', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Opini Kepatuhan Gagal Diubah', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function Deleted($data)
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $proses = DB::connection($this->database)->table($this->table)->where('id', $data['id'])
-    //     ->update(
-    //             array(
-    //                 'status_opini' => $data['status_opini'],
-    //                 'deleted_by' => $data['id_user'],
-    //                 'deleted_name' => $data['nama_user'],
-    //                 'deleted_on' => date('Y-m-d H:i:s'),
-    //             )
-    //         );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Opini Kepatuhan Berhasil Dihapus', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Opini Kepatuhan Gagal Dihapus', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function Send($data)
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $proses = DB::connection($this->database)->table($this->table)->where('id', $data['id'])
-    //     ->update(
-    //             array(
-    //                 'kode_status' => $data['kode_status'],
-    //                 'send_by' => $data['id_user'],
-    //                 'send_name' => $data['nama_user'],
-    //                 'send_on' => date('Y-m-d H:i:s'),
-    //             )
-    //         );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Opini Kepatuhan Berhasil Dikirim', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Opini Kepatuhan Gagal Dikirim', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function getById($id)
-    // {
-    //     return DB::table('m_pelatihan')->where('id', $id)->first();
-    // }
-
-    // public function getById($id)
-    // {
-    //     return DB::table('m_pelatihan')
-    //         ->join('users', 'm_pelatihan.nrp', '=', 'users.nrp')
-    //         ->where('m_pelatihan.id', $id)
-    //         ->first(['m_pelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan']);
-
-    // }
     public function getById($id)
     {
         $data = DB::table('m_pelatihan')
             ->join('users', 'm_pelatihan.nrp', '=', 'users.nrp')
             ->where('m_pelatihan.id', $id)
-            ->first(['m_pelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan']);
-
+            ->first(['m_pelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.divisi', 'users.phone_number','users.alamat']);
+        
+            //$data->username = $data->nama;
         return $data;
     }
 
-
-    public function create($data)
+    public function create($data, $userRole)
     {
+
+       
         return DB::table('m_pelatihan')->insert([
-            'nrp' => $data['nrp'],
-            'nama' => $data['nama_pelatihan'],
+            'nrp' => $data['nrp-dropdown'],
+            'nama' => $data['nama_pelatihan_add'],
             'jenis' => $data['jenis_pelatihan'],
             'informasi' => $data['informasi_pelatihan'],
             'narasumber' => $data['narasumber'],
@@ -160,12 +40,37 @@ Class pelatihanRepository
         ]);
     }
 
-    public function edit($data, $id)
+    public function edit($data, $id, $userRole)
     {
+        $kodeStatus = 1; // Default value
+
+        // Menentukan nilai kode_status berdasarkan nilai userRole
+        switch ($userRole) {
+            case 1:
+                $kodeStatus = 1;
+                break;
+            case 2:
+                $kodeStatus = 3;
+                break;
+            case 3:
+                $kodeStatus = 4;
+                break;
+            case 4:
+                $kodeStatus = 5;
+                break;
+            case 5:
+                $kodeStatus = 6;
+                break;
+            default:
+                $kodeStatus = 1;
+                break;
+        }
         return DB::table('m_pelatihan')
             ->where('id', $id)
             ->update([
-                'nama' => $data['nama_pelatihan'],
+                'nrp' => $data['nrp-dropdown'],
+                'nama' => $data['nama_pelatihan_add'],
+                'jenis' => $data['jenis_pelatihan'],
                 'informasi' => $data['informasi_pelatihan'],
                 'narasumber' => $data['narasumber'],
                 'alasan' => $data['alasan_pelatihan'],
@@ -173,14 +78,53 @@ Class pelatihanRepository
                 'waktu' => $data['waktu_pelatihan'],
                 'tempat' => $data['tempat_pelatihan'],
                 'biaya' => $data['biaya_pelatihan'],
-                'kode_status' => 1,
+                'kode_status' => $kodeStatus,
             ]);
     }
-    
 
     public function getAll()
     {
         return DB::table('m_pelatihan')->get();
+    }
+
+    public function getAllWithUsername()
+    {
+        $data = DB::table('m_pelatihan')
+            ->join('users', 'm_pelatihan.nrp', '=', 'users.nrp')
+            ->select('m_pelatihan.*', 'users.name as username','users.departemen as departemen', 'users.divisi as divisi') // Sesuaikan alias dengan nama yang Anda inginkan
+            ->get();
+
+        return $data;
+    }
+
+    public function getAllWithDate()
+    {
+        return DB::table('m_pelatihan')
+            ->join('users', 'm_pelatihan.nrp', '=', 'users.nrp')
+            ->select(
+                'm_pelatihan.*',
+                'users.name as username',
+                'users.departemen as departemen',
+                'users.divisi as divisi'
+            )
+            ->orderBy('m_pelatihan.waktu', 'desc'); 
+    }
+
+    public function getAllWithUsernameAndDateRange($start_date, $end_date)
+    {
+        $query = DB::table('m_pelatihan')
+            ->join('users', 'm_pelatihan.nrp', '=', 'users.nrp')
+            ->select('m_pelatihan.*', 'users.name as username', 'users.departemen as departemen', 'users.divisi as divisi')
+            ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
+                // Ubah format input tanggal ke format yang diharapkan oleh database
+                $start_date = date('Y-m-d', strtotime($start_date));
+                $end_date = date('Y-m-d', strtotime($end_date));
+
+                return $query->whereBetween('m_pelatihan.waktu', [$start_date, $end_date]);
+            })
+            ->get();
+
+        return $query;
     }
 
     public function send($userId, $userRole, $sendName, $selectedPelatihanId)
@@ -204,24 +148,56 @@ Class pelatihanRepository
             ]);
     
         return "Status updated successfully";
-    
-        
     }
 
-    public function revisi($revisiName, $selectedPelatihanId, $pesanRevisi, $userId)
+    // public function revisi($revisiName,$userRole, $selectedPelatihanId, $pesanRevisi, $userId)
+    // {
+    //     DB::table('m_pelatihan')
+    //         ->where('id', $selectedPelatihanId)
+    //         ->update([
+    //             'revisi_by' => $userId,
+    //             'revisi_name' => $revisiName,
+    //             'kode_status' => 9,
+    //             'revisi_desc' => $pesanRevisi
+    //         ]);
+
+    //     return 'Data Pelatihan berhasil di "Revisi"';
+    // }
+
+    public function revisi($revisiName, $userRole, $selectedPelatihanId, $pesanRevisi, $userId)
     {
-    
+        $kodeStatus = 9; // Default value
+
+        switch ($userRole) {
+            case 2:
+                $kodeStatus = 9;
+                break;
+            case 3:
+                $kodeStatus = 10;
+                break;
+            case 4:
+                $kodeStatus = 11;
+                break;
+            case 5:
+                $kodeStatus = 12;
+                break;
+            default:
+                $kodeStatus = 9;
+                break;
+        }
+
         DB::table('m_pelatihan')
             ->where('id', $selectedPelatihanId)
             ->update([
                 'revisi_by' => $userId,
                 'revisi_name' => $revisiName,
-                'kode_status' => 9,
+                'kode_status' => $kodeStatus,
                 'revisi_desc' => $pesanRevisi
             ]);
 
-        return 'Revisi berhasil dikirim dan kode status diperbarui.';
+        return 'Data Pelatihan berhasil di "Revisi"';
     }
+
 
     public function reject($rejectName, $selectedPelatihanId, $pesanReject, $userId)
     {
@@ -235,21 +211,19 @@ Class pelatihanRepository
                 'reject_desc' => $pesanReject
             ]);
 
-        return 'Revisi berhasil dikirim dan kode status diperbarui.';
+        return 'Data Pelatihan Berhasil di "Reject"';
     }
 
     public function delete($selectedPelatihanId)
     {
         try {
             DB::table('m_pelatihan')->where('id', $selectedPelatihanId)->delete();
-            return 'Data pelatihan berhasil dihapus.';
+            return 'Data Pelatihan Berhasil dihapus.';
         } catch (\Exception $e) {
             return 'Gagal menghapus data pelatihan: ' . $e->getMessage();
         }
     }
-
-
-    
+   
 }
 
 ?>
