@@ -46,6 +46,7 @@
                                         <span id="departemen"></span>
                                     </div>
                                     <div class="detail">
+<<<<<<< HEAD
                                         <label for="perusahaan">Perusahaan:</label>
                                         <span id="perusahaan"></span>
                                     </div>
@@ -123,6 +124,52 @@
                                     <div class="detail">
                                         <label for="upd_drc">Update By Direktur :</label>
                                         <span id="upd_drc"> </span>
+=======
+                                        <label for="divisi">divisi:</label>
+                                        <span id="divisi"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="nama_admp">Nama admp </label>
+                                        <span id="nama_admp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="jenis_admp">Jenis admp:</label>
+                                        <span id="jenis_admp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="informasi_admp">Informasi admp:</label>
+                                        <span id="informasi_admp"></span>
+                                    </div>
+                                   
+                                    <div class="detail">
+                                        <label for="waktu_admp">Waktu admp :</label>
+                                       <span id="waktu_admp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="tempat_admp">Tempat admp :</label>
+                                        <span id="tempat_admp"></span>
+                                    </div>
+                                    
+                                    <div class="detail">
+                                        <label for="aprroval">Aprroval by :</label>
+                                        <span id="approval"> </span>
+                                    </div>
+                                     <div class="detail">
+                                        <label for="revisi_by">Revisi by:</label>
+                                        <span id="revisi_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="revisi_desc">Keterangan Revisi :</label>
+                                        <span id="revisi_desc"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_by">Reject by :</label>
+                                        <span id="reject_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_desc">Keterangan Reject :</label>
+                                        <span id="reject_desc"> </span>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                                     </div>
                                 </div>
                             </div>
@@ -164,15 +211,25 @@
                   <select id="statusFilter" class="form-select">
                       <option value="">All</option>
                       <option value="Create">Create</option>
+<<<<<<< HEAD
                       <option value="Pending Atasan">Pending Superintendent PD</option>
                       <option value="Pending HR:PD">Pending Manager</option>
+=======
+                      <option value="Pending Atasan">Pending Atasan</option>
+                      <option value="Pending HR:PD">Pending HR:PD</option>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                       <option value="Pending Manager">Pending Manager</option>
                       <option value="Pending Direksi">Pending Direksi</option>
                       <option value="6">Pending HRGA</option>
                        <option value=6>Pending HRGA</option>
                       <option value="Pending HRGA">Pending HRGA</option>
+<<<<<<< HEAD
                       <option value="Revisi Atasan">Revisi Superintendent PD</option>
                       <option value="Revisi HR:PD">Revisi Manager</option>
+=======
+                      <option value="Revisi Atasan">Revisi Atasan</option>
+                      <option value="Revisi HR:PD">Revisi HR:PD</option>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                       <option value="Revisi Manager">Revisi Manager</option>
                       <option value="Revisi Direksi">Revisi Direksi</option>
                       <option value="Revisi HRGA">Revisi HRGA</option>
@@ -185,10 +242,19 @@
                     <th scope="col">No</th>
                     <th scope="col">NRP</th>
                     <th scope="col">Nama</th>
+<<<<<<< HEAD
                     <th scope="col">Perusahaan</th>
                     <th scope="col">Nama admp</th>
                     <th scope="col">Waktu Mulai admp</th>
                     <th scope="col">Waktu Selesai admp</th>
+=======
+                    <th scope="col">divisi</th>
+                    <th scope="col">Jenis admp</th>
+                    <th scope="col">Nama admp</th>
+                    <th scope="col">Waktu</th>
+                    <th scope="col">Lokasi</th>
+                    <th scope="col">Biaya</th>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     <th scope="col">Status</th>
                     <th scope="col">Aksi</th>
                   </tr>
@@ -198,6 +264,7 @@
                 @foreach($admpData as $no => $admp)
                 <tr>
                     <td>{{ $no + 1 }}</td>
+<<<<<<< HEAD
                     <td>{{ $admp->NRP }}</td>
                     <td>{{ $admp->username}}</td>
                     {{-- <td>{{ $admp->departemen}}</td> --}}
@@ -229,6 +296,45 @@
                         <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Manager</span>
                         @elseif($admp->status == 11)
                         <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Direksi</span>
+=======
+                    <td>{{ $admp->nrp }}</td>
+                    <td>{{ $admp->username}}</td>
+                    {{-- <td>{{ $admp->departemen}}</td> --}}
+                    <td>{{ $admp->divisi}}</td>
+                    <td>{{ $admp->jenis }}</td>
+                    <td>{{ $admp->nama }}</td>
+                    {{-- <td class="truncate-text">{{ $admp->informasi}}</td> --}}
+                    <td>{{ $admp->waktu }}</td>
+                    <td>{{ $admp->tempat }}</td>
+                    <td>{{ $admp->biaya }}</td>
+                    <td>
+                        @if($admp->kode_status == 1)
+                            <span class="badge rounded-pill text-bg-primary">Create</span>
+                        @elseif($admp->kode_status == 2)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending Atasan</span>
+                        @elseif($admp->kode_status == 3)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending HR:PD</span>
+                        @elseif($admp->kode_status == 4)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Manager</span>
+                        @elseif($admp->kode_status == 5)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Direksi</span>
+                        @elseif($admp->kode_status == 6)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>HRGA</span>
+                        @elseif($admp->kode_status == 7)
+                            <span class="badge rounded-pill bg-success text-light">Done</span>
+                        @elseif($admp->kode_status == 8)
+                            <span class="badge rounded-pill bg-danger text-start">Reject</span>
+                        @elseif($admp->kode_status == 9)
+                            <span class="badge rounded-pill text-bg-warning text-start">Revisi Atasan</span>
+                        @elseif($admp->kode_status == 10)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi HR:PD</span>
+                        @elseif($admp->kode_status == 11)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Manager</span>
+                        @elseif($admp->kode_status == 12)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Direksi</span>
+                        @elseif($admp->kode_status == 13)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>HRGA</span>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                         @else
                             <span class="badge rounded-pill bg-danger">Unknown Status</span>
                         @endif
@@ -238,7 +344,11 @@
                 <div class="dropdown">
                 <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                 <ul class="dropdown-menu">
+<<<<<<< HEAD
                     <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->PID }}"><i class="fa fa-expand"></i>View</a></li>          
+=======
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewadmpModal" data-id="{{ $admp->id }}"><i class="fa fa-expand"></i>View</a></li>          
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                 </ul>
                 </div>
               </td>
@@ -310,6 +420,7 @@ $('.view').click(function() {
         type: 'GET',
         url: '{{ url('/admp/get') }}/' + admpId,
         success: function(response) {
+<<<<<<< HEAD
             $('#viewadmpModal').find('#nrp').text(response.NRP);
             $('#viewadmpModal').find('#name').text(response.name);
             $('#viewadmpModal').find('#jabatan').text(response.jabatan);
@@ -333,6 +444,24 @@ $('.view').click(function() {
             $('#viewadmpModal').find('#upd_hr').text(response.UPDATE_AT_HR);
             $('#viewadmpModal').find('#upd_hr_mng').text(response.UPDATE_AT_HR_MNG);
             $('#viewadmpModal').find('#upd_drc').text(response.UPDATE_AT_DRC);
+=======
+            $('#viewadmpModal').find('#nrp').text(response.nrp);
+            $('#viewadmpModal').find('#name').text(response.name);
+            $('#viewadmpModal').find('#jabatan').text(response.jabatan);
+            $('#viewadmpModal').find('#departemen').text(response.departemen);
+            $('#viewadmpModal').find('#divisi').text(response.divisi);
+            $('#viewadmpModal').find('#jenis_admp').text(response.jenis);
+            $('#viewadmpModal').find('#informasi_admp').text(response.informasi);
+            $('#viewadmpModal').find('#nama_admp').text(response.nama);
+            $('#viewadmpModal').find('#waktu_admp').text(response.waktu);
+            $('#viewadmpModal').find('#tempat_admp').text(response.tempat);
+            $('#viewadmpModal').find('#biaya_admp').text(response.biaya);
+            $('#viewadmpModal').find('#approval').text(response.send_name);
+            $('#viewadmpModal').find('#revisi_desc').text(response.revisi_desc);
+            $('#viewadmpModal').find('#revisi_by').text(response.revisi_name);
+            $('#viewadmpModal').find('#reject_by').text(response.reject_name);
+            $('#viewadmpModal').find('#reject_desc').text(response.reject_desc);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     
             $('#viewadmpModal').modal('show');
         },

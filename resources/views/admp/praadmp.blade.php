@@ -1,4 +1,5 @@
 @extends('include/mainlayout')
+<<<<<<< HEAD
 @section('title', 'Pasca-ADMP')
 @section('content')
     <div class="pagetitle">
@@ -7,6 +8,16 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
           <li class="breadcrumb-item active">Pasca-ADMP</li>
+=======
+@section('title', 'PRA-ADMP')
+@section('content')
+    <div class="pagetitle">
+      <h1>Pra-ADMP</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Pra-ADMP</li>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         </ol>
       </nav>
     </div>
@@ -17,8 +28,13 @@
 
           <div class="card">
             <div class="card-body">
+<<<<<<< HEAD
               <h5 class="card-title"><i class="fa-solid fa-square-poll-vertical"></i> Pasca-ADMP</h5>
               <button type="button" class="btn bi bi-plus btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#praadmpModal"> Add Pasca ADMP</button>
+=======
+              <h5 class="card-title"><i class="fa-solid fa-square-poll-vertical"></i> Pra-ADMP</h5>
+              <button type="button" class="btn bi bi-plus btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#praadmpModal"> Add Pra ADMP</button>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
               <br><br>
 
               <!-- Modal View -->
@@ -48,8 +64,13 @@
                                         <span id="departemen"></span>
                                     </div>
                                     <div class="detail">
+<<<<<<< HEAD
                                         <label for="perusahaan">Perusahaan:</label>
                                         <span id="perusahaan"></span>
+=======
+                                        <label for="divisi">divisi:</label>
+                                        <span id="divisi"></span>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                                     </div>
                                     <div class="detail">
                                         <label for="ringkasan">Ringkasan HASIL ADMP: </label>
@@ -79,7 +100,11 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <div class="modal-header">
+<<<<<<< HEAD
                         <h1 class="modal-title fs-5" id="btn-add">Add Pasca admp</h1>
+=======
+                        <h1 class="modal-title fs-5" id="btn-add">Add Pra admp</h1>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -119,8 +144,13 @@
                             </div>
                              <div class="col-md-4">
                              <div class="form-floating">
+<<<<<<< HEAD
                                 <input type="text" disabled class="form-control" id="perusahaan-add" name="perusahaan-add" placeholder="Password">
                                 <label for="message-text">Perusahaan</label>
+=======
+                                <input type="text" disabled class="form-control" id="divisi-add" name="divisi-add" placeholder="Password">
+                                <label for="message-text">divisi</label>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                             </div>
                             </div>
                             <div class="col-md-12">
@@ -150,7 +180,11 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                     <div class="modal-header">
+<<<<<<< HEAD
                         <h1 class="modal-title fs-5" id="btn-add">Edit Pasca ADMP</h1>
+=======
+                        <h1 class="modal-title fs-5" id="btn-add">Edit Pra ADMP</h1>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -172,7 +206,11 @@
                             </div>
                             <div class="col-md-6">
                             <div class="form-floating">
+<<<<<<< HEAD
                                 <input type="text" readonly class="form-control" id="name-edit" name="name-edit" placeholder="Name">
+=======
+                                <input type="text" disabled class="form-control" id="name-edit" name="name-edit" placeholder="Name">
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                                 <label for="message-text">Nama </label>  
                             </div>
                             </div>
@@ -190,8 +228,13 @@
                             </div>
                              <div class="col-md-4">
                              <div class="form-floating">
+<<<<<<< HEAD
                                 <input type="text" disabled class="form-control" id="perusahaan-edit" name="perusahaan-edit" placeholder="Password">
                                 <label for="message-text">Perusahaan</label>
+=======
+                                <input type="text" disabled class="form-control" id="divisi-edit" name="divisi-edit" placeholder="Password">
+                                <label for="message-text">divisi</label>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                             </div>
                             </div>
                             <div class="col-md-12">
@@ -224,7 +267,11 @@
                     <th scope="col">NRP</th>
                     <th scope="col">Nama</th>
                     <th scope="col">Departemen</th>
+<<<<<<< HEAD
                     <th scope="col" style= "width: 100px;">Perusahaan</th>
+=======
+                    <th scope="col" style= "width: 100px;">divisi</th>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     <th scope="col" style= "width: 200px;" >Ringkasan ADMP</th>
                     <th scope="col">File</th>
                     <th scope="col">Aksi</th>
@@ -238,7 +285,11 @@
                     <td>{{ $praadmp->nrp }}</td>
                     <td>{{ $praadmp->username}}</td>
                     <td>{{ $praadmp->departemen}}</td>
+<<<<<<< HEAD
                     <td>{{ $praadmp->perusahaan}}</td>
+=======
+                    <td>{{ $praadmp->divisi}}</td>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     <td class="truncate-text">{{ $praadmp->ringkasan }}</td>
                      <td>
                         <a class="btn bi bi-file-earmark-text-fill text-primary" href="{{ asset($praadmp->file_path) }}" target="_blank">
@@ -298,7 +349,11 @@ $('.view').click(function() {
             $('#viewPraadmpModal').find('#name').text(response.name);
             $('#viewPraadmpModal').find('#jabatan').text(response.jabatan);
             $('#viewPraadmpModal').find('#departemen').text(response.departemen);
+<<<<<<< HEAD
             $('#viewPraadmpModal').find('#perusahaan').text(response.perusahaan);
+=======
+            $('#viewPraadmpModal').find('#divisi').text(response.divisi);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             $('#viewPraadmpModal').find('#ringkasan').text(response.ringkasan);
             $('#viewPraadmpModal').find('#created').text(response.created_name);
             //$('#viewPraadmpModal').find('#file').text(response.file_path);
@@ -328,7 +383,11 @@ $(document).ready(function() {
                 $('#name-add').val(response.nama);
                 $('#jabatan-add').val(response.jabatan);
                 $('#departemen-add').val(response.departemen);
+<<<<<<< HEAD
                 $('#perusahaan-add').val(response.perusahaan);
+=======
+                $('#divisi-add').val(response.divisi);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             },
             error: function(error) {
                 console.log('Ajax Error:', error);
@@ -351,7 +410,11 @@ $(document).ready(function() {
                 $('#name-edit').val(response.nama);
                 $('#jabatan-edit').val(response.jabatan);
                 $('#departemen-edit').val(response.departemen);
+<<<<<<< HEAD
                 $('#perusahaan-edit').val(response.perusahaan);
+=======
+                $('#divisi-edit').val(response.divisi);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             },
             error: function(error) {
                 console.log('Ajax Error:', error);
@@ -371,11 +434,14 @@ $('.edit').click(function() {
         url: '{{ url('/praadmp/get') }}/' + admpId,
         success: function(response) {
            
+<<<<<<< HEAD
             $('#editpraadmpModal').find('#nrp-dropdown-edit').val(response.nrp);
             $('#editpraadmpModal').find('#name-edit').val(response.name);
             $('#editpraadmpModal').find('#jabatan-edit').val(response.jabatan);
             $('#editpraadmpModal').find('#departemen-edit').val(response.departemen);
             $('#editpraadmpModal').find('#perusahaan-edit').val(response.perusahaan);
+=======
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             $('#editpraadmpModal').find('#ringkasan_admp_edit').val(response.ringkasan);
             $('#editpraadmpModal').find('#file_edit').val(response.file_path);
            

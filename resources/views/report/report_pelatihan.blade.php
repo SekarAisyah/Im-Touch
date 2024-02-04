@@ -46,6 +46,7 @@
                                         <span id="departemen"></span>
                                     </div>
                                     <div class="detail">
+<<<<<<< HEAD
                                         <label for="perusahaan">Perusahaan:</label>
                                         <span id="perusahaan"></span>
                                     </div>
@@ -158,6 +159,68 @@
                                         <span id="upd_DRC"> </span>
                                     </div>
 
+=======
+                                        <label for="divisi">divisi:</label>
+                                        <span id="divisi"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="nama_pelatihan">Nama Pelatihan </label>
+                                        <span id="nama_pelatihan"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="jenis_pelatihan">Jenis Pelatihan:</label>
+                                        <span id="jenis_pelatihan"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="informasi_pelatihan">Informasi Pelatihan:</label>
+                                        <span id="informasi_pelatihan"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="narasumber">Narasumber:</label>
+                                        <span id="narasumber">d</span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="alasan_pelatihan">Alasan Pelatihan:</label>
+                                        <span id="alasan_pelatihan">d</span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="sharing_pelatihan">Sharing Pelatihan:</label>
+                                       <span id="sharing_pelatihan" class="info-text"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="waktu_pelatihan">Waktu Pelatihan :</label>
+                                       <span id="waktu_pelatihan"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="tempat_pelatihan">Tempat Pelatihan :</label>
+                                        <span id="tempat_pelatihan"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="biaya_pelatihan">Biaya Pelatihan:</label>
+                                        <span id="biaya_pelatihan">Rp. </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="aprroval">Aprroval by :</label>
+                                        <span id="approval"> </span>
+                                    </div>
+                                     <div class="detail">
+                                        <label for="revisi_by">Revisi by:</label>
+                                        <span id="revisi_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="revisi_desc">Keterangan Revisi :</label>
+                                        <span id="revisi_desc"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_by">Reject by :</label>
+                                        <span id="reject_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_desc">Keterangan Reject :</label>
+                                        <span id="reject_desc"> </span>
+                                    </div>
+                                   
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -196,6 +259,7 @@
                   <select id="statusFilter" class="form-select">
                       <option value="">All</option>
                       <option value="Create">Create</option>
+<<<<<<< HEAD
                       <option value="Pending Atasan">Pending Superintendent PD</option>
                       <option value="Pending HR:PD">Pending Manager</option>
                       <option value="Pending Manager">Pending Manager</option>
@@ -203,6 +267,15 @@
                       <option value="Pending HRGA">Pending HRGA</option>
                       <option value="Revisi Atasan">Revisi Superintendent PD</option>
                       <option value="Revisi HR:PD">Revisi Manager</option>
+=======
+                      <option value="Pending Atasan">Pending Atasan</option>
+                      <option value="Pending HR:PD">Pending HR:PD</option>
+                      <option value="Pending Manager">Pending Manager</option>
+                      <option value="Pending Direksi">Pending Direksi</option>
+                      <option value="Pending HRGA">Pending HRGA</option>
+                      <option value="Revisi Atasan">Revisi Atasan</option>
+                      <option value="Revisi HR:PD">Revisi HR:PD</option>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                       <option value="Revisi Manager">Revisi Manager</option>
                       <option value="Revisi Direksi">Revisi Direksi</option>
                       <option value="Revisi HRGA">Revisi HRGA</option>
@@ -216,7 +289,11 @@
                     <th scope="col">No</th>
                     <th scope="col">NRP</th>
                     <th scope="col">Nama</th>
+<<<<<<< HEAD
                     <th scope="col">Perusahaan</th>
+=======
+                    <th scope="col">divisi</th>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     <th scope="col">Jenis Pelatihan</th>
                     <th scope="col">Nama Pelatihan</th>
                     <th scope="col">Waktu</th>
@@ -231,6 +308,7 @@
                 @foreach($pelatihanData as $no => $pelatihan)
                 <tr>
                     <td>{{ $no + 1 }}</td>
+<<<<<<< HEAD
                     <td>{{ $pelatihan->NRP }}</td>
                     <td>{{ $pelatihan->username}}</td>
                     <td>{{ $pelatihan->perusahaan}}</td>
@@ -263,6 +341,44 @@
                         <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Manager</span>
                         @elseif($pelatihan->STATUS == 11)
                         <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Direksi</span>
+=======
+                    <td>{{ $pelatihan->nrp }}</td>
+                    <td>{{ $pelatihan->username}}</td>
+                    <td>{{ $pelatihan->divisi}}</td>
+                    <td>{{ $pelatihan->jenis }}</td>
+                    <td>{{ $pelatihan->nama }}</td>
+                    {{-- <td class="truncate-text">{{ $pelatihan->informasi}}</td> --}}
+                    <td>{{ $pelatihan->waktu }}</td>
+                    <td>{{ $pelatihan->tempat }}</td>
+                    <td>{{ $pelatihan->biaya }}</td>
+                    <td>
+                        @if($pelatihan->kode_status == 1)
+                            <span class="badge rounded-pill text-bg-primary">Create</span>
+                        @elseif($pelatihan->kode_status == 2)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending Atasan</span>
+                        @elseif($pelatihan->kode_status == 3)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending HR:PD</span>
+                        @elseif($pelatihan->kode_status == 4)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Manager</span>
+                        @elseif($pelatihan->kode_status == 5)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Direksi</span>
+                        @elseif($pelatihan->kode_status == 6)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>HRGA</span>
+                        @elseif($pelatihan->kode_status == 7)
+                            <span class="badge rounded-pill bg-success text-light">Aprroved</span>
+                        @elseif($pelatihan->kode_status == 8)
+                            <span class="badge rounded-pill bg-danger text-start">Reject</span>
+                        @elseif($pelatihan->kode_status == 9)
+                            <span class="badge rounded-pill text-bg-warning text-start">Revisi Atasan</span>
+                        @elseif($pelatihan->kode_status == 10)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi HR:PD</span>
+                        @elseif($pelatihan->kode_status == 11)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Manager</span>
+                        @elseif($pelatihan->kode_status == 12)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Direksi</span>
+                        @elseif($pelatihan->kode_status == 13)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>HRGA</span>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                         @else
                             <span class="badge rounded-pill bg-danger">Unknown Status</span>
                         @endif
@@ -271,7 +387,11 @@
                     <div class="dropdown">
                     <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
                     <ul class="dropdown-menu">
+<<<<<<< HEAD
                         <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->PID }}"><i class="fa fa-expand"></i>View</a></li>
+=======
+                        <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewPelatihanModal" data-id="{{ $pelatihan->id }}"><i class="fa fa-expand"></i>View</a></li>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     </ul>
                     </td>
               </tr>
@@ -338,6 +458,7 @@ $('.view').click(function() {
         type: 'GET',
         url: '{{ url('/pelatihan/get') }}/' + pelatihanId,
         success: function(response) {
+<<<<<<< HEAD
             $('#viewPelatihanModal').find('#nrp').text(response.NRP);
                     $('#viewPelatihanModal').find('#name').text(response.name);
                     $('#viewPelatihanModal').find('#jabatan').text(response.jabatan);
@@ -370,6 +491,27 @@ $('.view').click(function() {
                     $('#viewPelatihanModal').find('#upd_HR').text(response.UPDATE_HR);
                     $('#viewPelatihanModal').find('#upd_HR_MNG').text(response.UPDATE_HR_MNG);
                     $('#viewPelatihanModal').find('#upd_DRC').text(response.UPDATE_DRC);
+=======
+            $('#viewPelatihanModal').find('#nrp').text(response.nrp);
+            $('#viewPelatihanModal').find('#name').text(response.name);
+            $('#viewPelatihanModal').find('#jabatan').text(response.jabatan);
+            $('#viewPelatihanModal').find('#departemen').text(response.departemen);
+            $('#viewPelatihanModal').find('#divisi').text(response.divisi);
+            $('#viewPelatihanModal').find('#jenis_pelatihan').text(response.jenis);
+            $('#viewPelatihanModal').find('#informasi_pelatihan').text(response.informasi);
+            $('#viewPelatihanModal').find('#nama_pelatihan').text(response.nama);
+            $('#viewPelatihanModal').find('#narasumber').text(response.narasumber);
+            $('#viewPelatihanModal').find('#alasan_pelatihan').text(response.alasan);
+            $('#viewPelatihanModal').find('#sharing_pelatihan').text(response.sharing);
+            $('#viewPelatihanModal').find('#waktu_pelatihan').text(response.waktu);
+            $('#viewPelatihanModal').find('#tempat_pelatihan').text(response.tempat);
+            $('#viewPelatihanModal').find('#biaya_pelatihan').text(response.biaya);
+            $('#viewPelatihanModal').find('#approval').text(response.send_name);
+            $('#viewPelatihanModal').find('#revisi_desc').text(response.revisi_desc);
+            $('#viewPelatihanModal').find('#revisi_by').text(response.revisi_name);
+            $('#viewPelatihanModal').find('#reject_by').text(response.reject_name);
+            $('#viewPelatihanModal').find('#reject_desc').text(response.reject_desc);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     
             $('#viewPelatihanModal').modal('show');
         },
@@ -379,6 +521,7 @@ $('.view').click(function() {
     });
 });
 
+<<<<<<< HEAD
 //EDIT
         var pelatihanId;
         $('.edit').click(function() {
@@ -434,6 +577,8 @@ $('.view').click(function() {
             });
         });
 
+=======
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
     </script>
    

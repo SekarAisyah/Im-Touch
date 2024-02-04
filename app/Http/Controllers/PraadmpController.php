@@ -160,7 +160,11 @@ public function create(Request $request)
             'nama' => $user->name,
             'jabatan' => $user->jabatan,
             'departemen' => $user->departemen,
+<<<<<<< HEAD
             'perusahaan' => $user->perusahaan,
+=======
+            'divisi' => $user->divisi,
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         ]);
     }
 

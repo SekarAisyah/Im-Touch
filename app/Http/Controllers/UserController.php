@@ -41,6 +41,24 @@ class UserController extends Controller
         ]);
     }
 
+    public function index()
+    {
+        $userData = $this->UserRepository->getData();
+
+        return view('/administration/user', [
+            'userData' => $userData,
+        ]);
+    }
+
+    public function profile()
+    {
+        $userData = $this->UserRepository->getData();
+
+        return view('/administration/profile', [
+            'userData' => $userData,
+        ]);
+    }
+
     public function loginku(Request $request)
     {
 
@@ -48,14 +66,25 @@ class UserController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
+<<<<<<< HEAD
 
         $credentials = $request->only('username', 'password');
         //dd($credentials);
         if (Auth::attempt($credentials)) {
+=======
+     
+        $credentials = $request->only('username', 'password');
+        //dd($credentials);
+        if (Auth::attempt($credentials)) {   
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             return redirect('/dashboard');
         } else {
             return back()->withErrors(['password' => 'username atau password salah.']);
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     }
 
     public function showRegistrationForm()
@@ -65,6 +94,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+<<<<<<< HEAD
         // dd($request);
         $data = $request->except('_token');
         // $data = $request->all();
@@ -136,6 +166,78 @@ class UserController extends Controller
         $currentPassword = $request->input('password');
         $newPassword = $request->input('newpassword');
 
+=======
+        $data = $request->except('_token');
+        //$data = $request->all();
+        //dd($data);
+        $result = $this->UserRepository->createUser($data);
+    
+        $data = $request->all();
+        
+        if ($result) {
+            return Response::json(['status' => 'success']);
+        } else {
+            return Response::json(['status' => 'error']);
+        }
+        
+    }
+
+    public function delete(Request $request)
+    {
+
+        $selectedUserId = $request->input('user_id');
+    
+        $result = $this->UserRepository->delete($selectedUserId);
+
+        return response()->json(['message' => $result]);
+    }
+
+    public function getEdit($id)
+    {
+        $user = $this->UserRepository->getById($id);
+
+        return response()->json($user);
+    }
+
+    public function edit($id, Request $request)
+    {
+        $data = $request->all();
+     
+        $result = $this->UserRepository->edit($data, $id);
+        
+        if ($result) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+    }
+
+    public function editProfile($id, Request $request)
+    {
+        $data = $request->all();
+        //dd($data);
+        $result = $this->UserRepository->editProfile($data, $id);
+        
+        if ($result) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        // Validasi data
+        // $request->validate([
+        //     'password' => 'required|min:6',
+        //     'newpassword' => 'required|min:6|confirmed',
+        // ]);
+
+        $userId = $request->input('user_id');
+        $currentPassword = $request->input('password');
+        $newPassword = $request->input('newpassword');
+
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         // Verifikasi password saat ini
         if (Hash::check($currentPassword, $this->UserRepository->getCurrentUserPassword($userId))) {
             // Verifikasi bahwa password baru sesuai dengan konfirmasi password
@@ -155,4 +257,5 @@ class UserController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Current password is incorrect']);
         }
     }
+
 }

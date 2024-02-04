@@ -31,6 +31,7 @@ class PracoachingController extends Controller
         ]);
     }
 
+<<<<<<< HEAD
     
 public function create(Request $request)
 {
@@ -55,6 +56,8 @@ public function create(Request $request)
     }
 }
 
+=======
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     // public function create(Request $request)
     // {
         
@@ -102,6 +105,31 @@ public function create(Request $request)
 //     }
 // }
 
+<<<<<<< HEAD
+=======
+public function create(Request $request)
+    {
+        // Validasi input, termasuk file
+        $validatedData = $request->validate([
+            'ringkasan_coaching' => 'required|string',
+            'file' => 'required|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        // Proses upload file
+        $file = $request->file('file');
+        $path = $file->store('public');
+        $data = $validatedData;
+
+        $data['file_path'] = $path;
+        $data['nrp'] = $request->input('nrp-dropdown');
+        $result = $this->PracoachingRepository->create($data);
+        if ($result) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'error']);
+        }
+    }
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
 
 
@@ -162,7 +190,11 @@ public function create(Request $request)
             'nama' => $user->name,
             'jabatan' => $user->jabatan,
             'departemen' => $user->departemen,
+<<<<<<< HEAD
             'perusahaan' => $user->perusahaan,
+=======
+            'divisi' => $user->divisi,
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         ]);
     }
 

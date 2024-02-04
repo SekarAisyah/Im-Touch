@@ -13,10 +13,15 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'pelatihan/create',
+<<<<<<< HEAD
         'report-pelatihan/search',
         '/register',
         '/',
         '/dashboard'
+=======
+        'report-pelatihan/search'
+
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
 
     ];

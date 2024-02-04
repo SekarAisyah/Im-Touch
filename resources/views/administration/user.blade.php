@@ -56,8 +56,13 @@
                                         <span id="departemen-view"></span>
                                     </div>
                                     <div class="detail">
+<<<<<<< HEAD
                                         <label for="perusahaan">Perusahaan:</label>
                                         <span id="perusahaan-view"></span>
+=======
+                                        <label for="divisi">divisi:</label>
+                                        <span id="divisi-view"></span>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                                     </div>
                                     <div class="detail">
                                         <label for="phone_number">No. HP:</label>
@@ -144,8 +149,13 @@
                             
                              <div class="col-md-6">
                              <div class="form-floating">
+<<<<<<< HEAD
                                 <input type="text"class="form-control" id="perusahaan" name="perusahaan" placeholder="Perusahaan">
                                 <label for="message-text">Perusahaan</label>
+=======
+                                <input type="text"class="form-control" id="divisi" name="divisi" placeholder="divisi">
+                                <label for="message-text">divisi</label>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                             </div>
                             </div>
                             <div class="col-md-6">
@@ -191,7 +201,11 @@
                     <th scope="col">Email</th>
                     <th scope="col">Departemen</th>
                     <th scope="col">Jabatan</th>
+<<<<<<< HEAD
                     <th scope="col">Perusahaan</th>
+=======
+                    <th scope="col">divisi</th>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     <th scope="col">No. Telepon</th>
                     <th scope="col">Alamat</th>
                     <th scope="col">Aksi</th>
@@ -207,7 +221,11 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->departemen}}</td>
                     <td>{{ $user->jabatan}}</td>
+<<<<<<< HEAD
                     <td>{{ $user->perusahaan }}</td>
+=======
+                    <td>{{ $user->divisi }}</td>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     <td>{{ $user->phone_number }}</td>
                     <td>{{ $user->alamat}}</td>
                     <td>  
@@ -278,7 +296,11 @@ $('.view').click(function() {
             $('#viewuserModal').find('#password-view').text(response.password);
             $('#viewuserModal').find('#jabatan-view').text(response.jabatan);
             $('#viewuserModal').find('#departemen-view').text(response.departemen);
+<<<<<<< HEAD
             $('#viewuserModal').find('#perusahaan-view').text(response.perusahaan);
+=======
+            $('#viewuserModal').find('#divisi-view').text(response.divisi);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             $('#viewuserModal').find('#phone_number-view').text(response.phone_number);
             $('#viewuserModal').find('#alamat-view').text(response.alamat);
             $('#viewuserModal').find('#id_role-view').text(getLevelText(response.id_role));
@@ -329,7 +351,11 @@ $('.edit').click(function() {
             $('#userModal #password').val(response.password);
             $('#userModal #jabatan').val(response.jabatan);
             $('#userModal #departemen').val(response.departemen);
+<<<<<<< HEAD
             $('#userModal #perusahaan').val(response.perusahaan);
+=======
+            $('#userModal #divisi').val(response.divisi);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             $('#userModal #phone_number').val(response.phone_number);
             $('#userModal #alamat').val(response.alamat);
             

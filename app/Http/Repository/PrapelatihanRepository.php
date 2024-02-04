@@ -12,7 +12,11 @@ Class PrapelatihanRepository
         $data = DB::table('m_prapelatihan')
             ->join('users', 'm_prapelatihan.nrp', '=', 'users.nrp')
             ->where('m_prapelatihan.id', $id)
+<<<<<<< HEAD
             ->first(['m_prapelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan']);
+=======
+            ->first(['m_prapelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.divisi']);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         
         return $data;
     }
@@ -53,7 +57,11 @@ Class PrapelatihanRepository
     {
         $data = DB::table('m_prapelatihan')
             ->join('users', 'm_prapelatihan.nrp', '=', 'users.nrp')
+<<<<<<< HEAD
             ->select('m_prapelatihan.*', 'users.name as username','users.departemen as departemen', 'users.perusahaan as perusahaan') // Sesuaikan alias dengan nama yang Anda inginkan
+=======
+            ->select('m_prapelatihan.*', 'users.name as username','users.departemen as departemen', 'users.divisi as divisi') // Sesuaikan alias dengan nama yang Anda inginkan
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             ->get();
 
         return $data;

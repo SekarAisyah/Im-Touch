@@ -47,7 +47,28 @@
                             <h4 class="login-subtitle">"Empower Success through Effective Training Management!"</h4>
                             <div class="d-flex justify-content-center py-4">
 
+<<<<<<< HEAD
                                 <a href="#" class="logo d-flex w-auto">
+=======
+                  <form class="row g-3 needs-validation" method="POST" action="{{ route('register') }}">
+                  
+                    <img class = "form-login" src="assets/img/mitrabaralogo.jpg" alt="">
+                    <div class="col-10 form-input">
+                      <input type="text" name="name" class="form-control" id="name" required placeholder="Your Name">
+                      <div class="invalid-feedback">Please enter your name!</div>
+                    </div>
+                    <div class="col-10 form-input">
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="email" class="form-control" id="email" required placeholder=" Your Email">
+                        <div class="invalid-feedback">Please enter your email.</div>
+                      </div>
+                    </div>
+                    <div class="col-10 form-input">
+                      <input type="text" name="username" class="form-control" id="username" required placeholder="Username">
+                      <div class="invalid-feedback">Please enter your username!</div>
+                    </div>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
                                     <img class = "login" src="assets/img/login.jpg" alt="">
                                 </a>

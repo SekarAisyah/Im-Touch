@@ -2,6 +2,7 @@
 @section('title', 'Coaching')
 @section('content')
     <div class="pagetitle">
+<<<<<<< HEAD
         <h1>coaching</h1>
         <nav>
             <ol class="breadcrumb">
@@ -9,12 +10,22 @@
                 <li class="breadcrumb-item active">Coaching</li>
             </ol>
         </nav>
+=======
+      <h1>coaching</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Coaching</li>
+        </ol>
+      </nav>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     </div>
 
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
 
+<<<<<<< HEAD
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fa-solid fa-square-poll-vertical"></i> Coaching </h5>
@@ -259,6 +270,130 @@
                                         <button type="submit" class="btn btn-primary" id="btn-yes-revisi">Kirim</button>
                                     </div>
                                 </div>
+=======
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-solid fa-square-poll-vertical"></i>  Coaching </h5>
+              <button type="button" class="btn bi bi-plus btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#coachingModal"> Add Coaching</button>
+              <br><br>
+
+              <!-- Modal View -->
+                <div class="modal fade modal-view" id="viewCoachingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-6" id="btn-view">View coaching</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="coaching-details">
+                                    <div class="detail">
+                                        <label for="nrp">NRP :</label>
+                                        <span id="nrp"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="name">Nama:</label>
+                                        <span id="name"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="jabatan">Jabatan:</label>
+                                        <span id="jabatan"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="departemen">Departemen:</label>
+                                        <span id="departemen"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="divisi">divisi:</label>
+                                        <span id="divisi"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="nama_coaching">Nama Coaching </label>
+                                        <span id="nama_coaching"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="jenis_coaching">Jenis Coaching:</label>
+                                        <span id="jenis_coaching"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="informasi_coaching">Informasi Coaching:</label>
+                                        <span id="informasi_coaching"></span>
+                                    </div>
+                                   
+                                    <div class="detail">
+                                        <label for="waktu_coaching">Waktu Coaching :</label>
+                                       <span id="waktu_coaching"></span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="tempat_coaching">Tempat Coaching :</label>
+                                        <span id="tempat_coaching"></span>
+                                    </div>
+                                    
+                                    <div class="detail">
+                                        <label for="aprroval">Aprroval by :</label>
+                                        <span id="approval"> </span>
+                                    </div>
+                                     <div class="detail">
+                                        <label for="revisi_by">Revisi by:</label>
+                                        <span id="revisi_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="revisi_desc">Keterangan Revisi :</label>
+                                        <span id="revisi_desc"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_by">Reject by :</label>
+                                        <span id="reject_by"> </span>
+                                    </div>
+                                    <div class="detail">
+                                        <label for="reject_desc">Keterangan Reject :</label>
+                                        <span id="reject_desc"> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal View -->
+
+              <!-- Modal Add -->
+                <div class="modal fade modal_add" id="coachingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mode="add">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="btn-add">Add Coaching</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{-- <input type="hidden" name="_token" value="{{{ csrf_token() }}}" /> --}}
+                        <input type="hidden" name="id" id="id" />
+                        <input type="hidden" name="action_flag" id="action_flag" />
+                        <input type="hidden" name="tgl_mulai" id="tgl_mulai" />
+                        {{-- <input type="hidden" name="last_seq" id="last_seq" value="{{{$last_seq}}}" /> --}}
+
+                        <form class="row g-3 needs-validation" method="POST" action="/coaching/create">
+                        @csrf
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <select class="form-control" id="nrp-dropdown" name="nrp-dropdown">
+                                    <option value="" selected>Select NRP</option>
+                                    @foreach ($nrpOptions as $nrp)
+                                        <option value="{{ $nrp->nrp }}">{{ $nrp->nrp }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="nrp">NRP <span style="color:red">*</span></label>
+                            </div>
+
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" disabled class="form-control" id="name-add" name="name-add" placeholder="Name">
+                                <label for="message-text">Nama </label>
+                                
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                             </div>
                         </div>
                         <!--end::Modal Revisi-->
@@ -293,6 +428,7 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         </div>
                         <!--end::Modal Revisi-->
 
@@ -680,11 +816,312 @@
 
                     </div>
                 </div>
+=======
+                            <div class="col-md-4">
+                             <div class="form-floating">
+                                <input type="text" disabled class="form-control" id="jabatan-add" name="jabatan-add" placeholder="Jabatan">
+                                <label for="message-text">Jabatan </label>
+                            </div>
+                            </div>
+                            <div class="col-md-4">
+                             <div class="form-floating">
+                                <input type="text" disabled class="form-control" id="departemen-add" name="departemen-add" placeholder="Password">
+                                <label for="message-text">Departemen </label>
+                            </div>
+                            </div>
+                             <div class="col-md-4">
+                             <div class="form-floating">
+                                <input type="text" disabled class="form-control" id="divisi-add" name="divisi-add" placeholder="Password">
+                                <label for="message-text">divisi</label>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <select class="form-control" id="jenis_coaching_add" name="jenis_coaching_add">
+                                    <option value="coaching1">coaching 1</option>
+                                    <option value="coaching2">coaching 2</option>
+                                    <option value="coaching3">coaching 3</option>
+                                </select>
+                             <label for="jenis_coaching">Jenis Coaching<span style="color:red">*</span></label>
+                             
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="nama_coaching_add" name="nama_coaching_add" placeholder="nama_coaching_add" required>
+                                <label for="nama_coaching_add"> Nama Coaching <span style="color:red">*</span></label>
+                            </div>
+                            </div>
+                            <div class="col-md-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Address" id="informasi_coaching" name="informasi_coaching" style="height: 100px;"></textarea>
+                                <label for="message-text">Informasi Coaching </span></label>
+                            </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="waktu_coaching" name="waktu_coaching" placeholder="Nama coaching" required>
+                                <label for="nama coaching">Waktu Coaching<span style="color:red">*</span></label>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="tempat_coaching" name="tempat_coaching" placeholder="Nama coaching" required>
+                                <label for="nama coaching">Tempat Coaching<span style="color:red">*</span></label>
+                            </div>
+                            </div>
+                           
+                         </form>             
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btn-yes-add">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+              {{-- End Modal Add --}}
+
+              <!--begin::Modal Revisi-->
+              <div class="modal fade modal_revisi" id="revisiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Revisi coaching</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <form class="kt-form kt-form--label-right form_revisi" action="{{ route('revisi.coaching') }}"  method="POST" enctype="multipart/form-data" autocomplete="off">
+                                  @csrf
+                                  <div class="form-group">
+                                      <label for="message-text" class="form-control-label">Pesan Revisi coaching <span style="color:red">*</span></label>
+                                      <textarea class="form-control" id="revisi" name="revisi" rows="8"></textarea>
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary" id="btn-yes-revisi">Kirim</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--end::Modal Revisi-->
+
+              <!--begin::Modal Reject-->
+              <div class="modal fade modal_reject" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Reject coaching</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <form class="kt-form kt-form--label-right form_reject" action="{{ route('reject.coaching') }}"  method="POST" enctype="multipart/form-data" autocomplete="off">
+                                  @csrf
+                                  <div class="form-group">
+                                      <label for="message-text" class="form-control-label">Pesan Reject coaching <span style="color:red">*</span></label>
+                                      <textarea class="form-control" id="reject" name="reject" rows="8"></textarea>
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary" id="btn-yes-reject">Kirim</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--end::Modal Revisi-->
+              
+              <!-- Table with stripped rows -->
+              <div class="container">
+              <table class="table dt_coaching" id="datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">NRP</th>
+                    <th scope="col">Nama</th>
+                    {{-- <th scope="col">Departemen</th> --}}
+                    <th scope="col">divisi</th>
+                    <th scope="col">Jenis coaching</th>
+                    <th scope="col">Nama coaching</th>
+                    {{-- <th scope="col">Informasi coaching</th> --}}
+                    <th scope="col">Waktu</th>
+                    <th scope="col">Lokasi</th>
+                    <th scope="col">Biaya</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{-- //sekar --}}
+                @foreach($coachingData as $no => $coaching)
+                <tr>
+                    <td>{{ $no + 1 }}</td>
+                    <td>{{ $coaching->nrp }}</td>
+                    <td>{{ $coaching->username}}</td>
+                    {{-- <td>{{ $coaching->departemen}}</td> --}}
+                    <td>{{ $coaching->divisi}}</td>
+                    <td>{{ $coaching->jenis }}</td>
+                    <td>{{ $coaching->nama }}</td>
+                    {{-- <td class="truncate-text">{{ $coaching->informasi}}</td> --}}
+                    <td>{{ $coaching->waktu }}</td>
+                    <td>{{ $coaching->tempat }}</td>
+                    <td>{{ $coaching->biaya }}</td>
+                    <td>
+                        @if($coaching->kode_status == 1)
+                            <span class="badge rounded-pill text-bg-primary">Create</span>
+                        @elseif($coaching->kode_status == 2)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending Atasan</span>
+                        @elseif($coaching->kode_status == 3)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending HR:PD</span>
+                        @elseif($coaching->kode_status == 4)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Manager</span>
+                        @elseif($coaching->kode_status == 5)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>Direksi</span>
+                        @elseif($coaching->kode_status == 6)
+                            <span class="badge rounded-pill text-bg-info text-start">Pending<br>HRGA</span>
+                        @elseif($coaching->kode_status == 7)
+                            <span class="badge rounded-pill bg-success text-light">Done</span>
+                        @elseif($coaching->kode_status == 8)
+                            <span class="badge rounded-pill bg-danger text-start">Reject</span>
+                        @elseif($coaching->kode_status == 9)
+                            <span class="badge rounded-pill text-bg-warning text-start">Revisi Atasan</span>
+                        @elseif($coaching->kode_status == 10)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi HR:PD</span>
+                        @elseif($coaching->kode_status == 11)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Manager</span>
+                        @elseif($coaching->kode_status == 12)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>Direksi</span>
+                        @elseif($coaching->kode_status == 13)
+                        <span class="badge rounded-pill text-bg-warning text-start">Revisi<br>HRGA</span>
+                        @else
+                            <span class="badge rounded-pill bg-danger">Unknown Status</span>
+                        @endif
+                    </td>
+                    <td>  
+                     
+                <div class="dropdown">
+                <a class="btn btn-sm btn-outline-secondary dropdown-toggle btn-sm" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                @if(auth()->user()->id_role == 0)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-paper-plane"></i> Send</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                    <li><a class="dropdown-item bi bi-file-pdf export" data-id="{{ $coaching->id }}" href="#"> Export PDF</a></li>               
+                </ul>
+                @elseif($coaching->kode_status == 1 && auth()->user()->id_role == 1)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-paper-plane"></i> Send</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 9 && auth()->user()->id_role == 1)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 10 && auth()->user()->id_role == 2)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 11 && auth()->user()->id_role == 3)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                 @elseif($coaching->kode_status == 12 && auth()->user()->id_role == 4)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                 @elseif($coaching->kode_status == 13 && auth()->user()->id_role == 5)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 11 && auth()->user()->id_role == 3)
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item edit" href="#" data-bs-toggle="modal" data-bs-target="#coachingModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-pen-to-square"></i>Edit</a></li>
+                    <li><a class="dropdown-item delete" href="#" data-id="{{ $coaching->id }}"><i class="fa-solid fa-trash"></i>Delete</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 2 && auth()->user()->id_role == 2)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>                </ul>
+                @elseif($coaching->kode_status == 3 && auth()->user()->id_role == 3)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 4 && auth()->user()->id_role == 4)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 5 && auth()->user()->id_role == 5)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                    <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 6 && auth()->user()->id_role == 6)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item send-link" href="#" data-id="{{ $coaching->id }}"><i class="fa-regular fa-square-check"></i> Approve</a></li>
+                    <li><a class="dropdown-item revisi" href="#" data-bs-toggle="modal" data-bs-target="#revisiModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-message"></i>Revisi</a></li>
+                   <li><a class="dropdown-item reject" href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" data-id="{{ $coaching->id }}"><i class="fa-regular fa-circle-xmark"></i>Reject</a></li>
+                </ul>
+                @elseif($coaching->kode_status == 7)
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                    <li><a class="dropdown-item" href="/coaching_pdf"><i class="fa-solid fa-square-poll-vertical"></i> Export PDF</a></li>
+                </ul>
+                @else
+                 <ul class="dropdown-menu">
+                    <li><a class="dropdown-item view" href="#" data-bs-toggle="modal" data-bs-target="#viewcoachingModal" data-id="{{ $coaching->id }}"><i class="fa fa-expand"></i>View</a></li>
+                @endif
+                </div>
+              </td>
+              </tr>
+              @endforeach
+              </tbody>
+              </table>
+              </div>
+              <!-- End Table with stripped rows -->
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
             </div>
         </div>
     </section>
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     {{-- <script src="app/javascript/coaching.js"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
@@ -695,6 +1132,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <script>
         $(document).ready(function() {
+<<<<<<< HEAD
             $('#datatable').DataTable();
         });
     </script>
@@ -1145,5 +1583,380 @@
         });
     </script>
 
+=======
+        $('#datatable').DataTable();});
+    </script>
+
+<script>
+
+$(document).ready(function() {
+
+    $('#nrp-dropdown').on('change', function() {
+        var selectedNrp = $(this).val();
+    
+        $.ajax({
+            type: 'POST',
+            url: 'coaching/get_user_info',
+            data: { nrp: selectedNrp, _token: '{{ csrf_token() }}' },
+            success: function(response) {
+    
+                $('#name-add').val(response.nama);
+                $('#jabatan-add').val(response.jabatan);
+                $('#departemen-add').val(response.departemen);
+                $('#divisi-add').val(response.divisi);
+            },
+            error: function(error) {
+                console.log('Ajax Error:', error);
+            }
+        });
+    });
+});
+
+
+// Jumlah karakter data tabel
+$(document).ready(function() {
+    $('.truncate-text').each(function() {
+        var maxLength = 100; 
+        var originalText = $(this).text();
+
+        if (originalText.length > maxLength) {
+            var truncatedText = originalText.substring(0, maxLength) + '...';
+            $(this).text(truncatedText);
+        }
+    });
+});
+
+//VIEW sekar
+var coachingId; 
+$('.view').click(function() {
+    coachingId = $(this).data('id');
+     $('#viewCoachingModal').attr('data-mode', 'edit');
+    
+    $.ajax({
+        type: 'GET',
+        url: '{{ url('/coaching/get') }}/' + coachingId,
+        success: function(response) {
+            $('#viewCoachingModal').find('#nrp').text(response.nrp);
+            $('#viewCoachingModal').find('#name').text(response.name);
+            $('#viewCoachingModal').find('#jabatan').text(response.jabatan);
+            $('#viewCoachingModal').find('#departemen').text(response.departemen);
+            $('#viewCoachingModal').find('#divisi').text(response.divisi);
+            $('#viewCoachingModal').find('#jenis_coaching').text(response.jenis);
+            $('#viewCoachingModal').find('#informasi_coaching').text(response.informasi);
+            $('#viewCoachingModal').find('#nama_coaching').text(response.nama);
+            $('#viewCoachingModal').find('#waktu_coaching').text(response.waktu);
+            $('#viewCoachingModal').find('#tempat_coaching').text(response.tempat);
+            $('#viewCoachingModal').find('#biaya_coaching').text(response.biaya);
+            $('#viewCoachingModal').find('#approval').text(response.send_name);
+            $('#viewCoachingModal').find('#revisi_desc').text(response.revisi_desc);
+            $('#viewCoachingModal').find('#revisi_by').text(response.revisi_name);
+            $('#viewCoachingModal').find('#reject_by').text(response.reject_name);
+            $('#viewCoachingModal').find('#reject_desc').text(response.reject_desc);
+    
+            $('#viewCoachingModal').modal('show');
+        },
+        error: function(error) {
+            // Tampilkan pesan kesalahan jika diperlukan
+        }
+    });
+});
+
+//EDIT
+var coachingId; 
+$('.edit').click(function() {
+    coachingId = $(this).data('id');
+     $('#coachingModal').attr('data-mode', 'edit');
+    
+    $.ajax({
+        type: 'GET',
+        url: '{{ url('/coaching/get') }}/' + coachingId,
+        success: function(response) {
+ 
+            $('#coachingModal').find('#jenis_coaching').text(response.jenis);
+            $('#coachingModal').find('#informasi_coaching').val(response.informasi);
+            $('#coachingModal').find('#nama_coaching_add').val(response.nama);
+            $('#coachingModal').find('#waktu_coaching').val(response.waktu);
+            $('#coachingModal').find('#tempat_coaching').val(response.tempat);
+        
+            $('#coachingModal').attr('data-mode', 'edit');
+            $('#coachingModal').modal('show');
+        },
+        error: function(error) {
+            // Tampilkan pesan kesalahan jika diperlukan
+        }
+    });
+});
+
+$(document).ready(function() {
+$('#btn-yes-add').click(function() {
+    var mode = $('#coachingModal').data('mode');
+    
+    if (mode === 'add') {
+        $.ajax({
+            type: 'POST',
+            url: '{{ url('/coaching/create') }}',
+            data: $('form').serialize(),
+            success: function(response) {
+                if (response.status === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'coaching berhasil di tambahkan!',
+                    }).then(() => {
+                       location.reload()
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'coaching gagal di tambahkan.',
+                    });
+                }
+            },
+        });
+    } else if (mode === 'edit') {  
+        $.ajax({
+            type: 'PUT',
+            url: '{{ url('/coaching/myedit') }}/' + coachingId,
+            data: $('form').serialize() + '&coaching_id=' + coachingId,
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Display a SweetAlert success message
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'coaching berhasil di edit!',
+                    }).then(() => {
+                        location.reload()
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'coaching gagal di edit.',
+                    });
+                }
+            },
+        });
+    }
+
+    $('#coachingModal').modal('hide');
+    
+});
+});
+
+
+function getStatusText(kodeStatus) {
+    if (kode_status === 1) {
+        return '<span class="badge rounded-pill text-bg-primary">Create</span>';
+    } else if (kode_status === 2) {
+        return '<span class="badge rounded-pill bg-warning text-dark">Revisi</span>';
+    } else if (kode_status === 3) {
+        return '<span class="badge rounded-pill text-bg-info text-start">Pending HRGA Manager</span>';
+    } else {
+        return 'Unknown Status';
+    }
+}
+
+// Function untuk mengganti status di tabel
+function replaceStatusInTable() {
+    var rows = document.querySelectorAll('.dt_coaching tbody tr');
+    rows.forEach(function(row) {
+        var kodeStatus = row.querySelector('td:nth-child(8)').textContent; // Ambil kode_status dari kolom ke-8
+        var statusText = getStatusText(kodeStatus); // Dapatkan teks status
+        row.querySelector('td:nth-child(8)').innerHTML = statusText; // Ganti isi kolom dengan teks status yang sesuai
+    });
+}
+
+// Panggil fungsi untuk mengganti status setelah tabel dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    replaceStatusInTable();
+});
+
+
+//SEND
+document.querySelectorAll('.send-link').forEach(function(link) {
+   link.addEventListener('click', function(event) {
+       event.preventDefault();
+       var coachingId = this.getAttribute('data-id');
+
+       Swal.fire({
+           title: 'Konfirmasi',
+           text: 'Yakin ingin mengirim data?',
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Ya, Kirim!',
+           cancelButtonText: 'Batal'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               axios.post('{{ route('send.coaching') }}', {
+                   coaching_id: coachingId
+               })
+               .then(function (response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Sukses!',
+                       text: response.data.message
+                   }).then(() => {
+                       location.reload();
+                   });
+               })
+               .catch(function (error) {
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Gagal!',
+                       text: 'Terjadi kesalahan saat mengirim data.'
+                   });
+               });
+           }
+       });
+   });
+});
+
+//EXPORT
+document.querySelectorAll('.export').forEach(function(link) {
+   link.addEventListener('click', function(event) {
+       event.preventDefault();
+       var id = this.getAttribute('data-id');
+
+       Swal.fire({
+           title: 'Konfirmasi',
+           text: 'Export data?',
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Ya, Kirim!',
+           cancelButtonText: 'Batal'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               axios.post('{{ route('export.coaching') }}', {
+                   id: id
+               })
+               .then(function (response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Sukses!',
+                       text: response.data.message
+                   });
+               })
+               .catch(function (error) {
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Gagal!',
+                       text: 'Terjadi kesalahan saat mengirim data.'
+                   });
+               });
+           }
+       });
+   });
+});
+
+//DELETE
+document.querySelectorAll('.delete').forEach(function(link) {
+   link.addEventListener('click', function(event) {
+       event.preventDefault();
+       var coachingId = this.getAttribute('data-id');
+
+       Swal.fire({
+           title: 'Konfirmasi',
+           text: 'Apakah Anda yakin akan menghapus data ini?',
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonText: 'Ya, Kirim!',
+           cancelButtonText: 'Batal'
+       }).then((result) => {
+           if (result.isConfirmed) {
+               axios.post('{{ route('delete.coaching') }}', {
+                   coaching_id: coachingId
+               })
+               .then(function (response) {
+                   Swal.fire({
+                       icon: 'success',
+                       title: 'Sukses!',
+                       text: response.data.message
+                   }).then(() => {
+                       location.reload();
+                   });
+               })
+               .catch(function (error) {
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Gagal!',
+                       text: 'Terjadi kesalahan saat mengirim data.'
+                   });
+               });
+           }
+       });
+   });
+});
+
+//REJECT
+$('.reject').click(function() {
+    var coachingId = $(this).data('id'); 
+
+    $('#btn-yes-reject').click(function() {
+        var data = $('.form_reject').serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('reject.coaching') }}?coaching_id=' + coachingId, 
+            data: data,
+            success: function(response) {
+                Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: response.message
+                }).then(() => {
+                       location.reload();
+                   });
+            },
+            error: function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan saat mengirim revisi.'
+                });
+            }
+        });
+    });
+});
+
+
+//REVISI
+$('.revisi').click(function() {
+    var coachingId = $(this).data('id'); // Ambil ID coaching dari atribut data-id
+    
+    $('#btn-yes-revisi').click(function() {
+        // Ambil data dari formulir, termasuk pesan revisi
+        var data = $('.form_revisi').serialize();
+
+        // Kirim data dengan permintaan AJAX
+        $.ajax({
+            type: 'POST',
+             url: '/coaching/revisi?coaching_id=' + coachingId, 
+            data: data,
+            success: function(response) {
+                Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: response.message
+                }).then(() => {
+                       location.reload()
+                });
+            },
+            error: function(error) {
+                // Tampilkan SweetAlert kesalahan
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan saat mengirim revisi.'
+                });
+            }
+        });
+    });
+});
+
+    </script>
+   
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
 @endsection

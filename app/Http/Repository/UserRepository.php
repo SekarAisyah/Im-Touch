@@ -72,7 +72,11 @@ class UserRepository
                 'password' => $data['password'],
                 'jabatan' => $data['jabatan'],
                 'departemen' => $data['departemen'],
+<<<<<<< HEAD
                 'perusahaan' => $data['perusahaan'],
+=======
+                'divisi' => $data['divisi'],
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                 'phone_number' => $data['phone_number'],
                 'alamat' => $data['alamat'],
                 'id_role' => $data['id_role'],
@@ -91,7 +95,11 @@ class UserRepository
                     'email' => $data['email'],
                     'jabatan' => $data['jabatan'],
                     'departemen' => $data['departemen'],
+<<<<<<< HEAD
                     'perusahaan' => $data['perusahaan'],
+=======
+                    'divisi' => $data['divisi'],
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                     'phone_number' => $data['phone_number'],
                     'alamat' => $data['alamat'],
                 ]);

@@ -40,8 +40,13 @@
                   </div>
 
                   <div class="row">
+<<<<<<< HEAD
                     <div class="col-lg-4 col-md-4 label">Perusahaan</div>
                     <div class="col-lg-8 col-md-8">{{ auth()->user()->perusahaan }}</div>
+=======
+                    <div class="col-lg-4 col-md-4 label">divisi</div>
+                    <div class="col-lg-8 col-md-8">{{ auth()->user()->divisi }}</div>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                   </div>
 
                   <div class="row">
@@ -116,9 +121,15 @@
                     </div>
 
                     <div class="row mb-3">
+<<<<<<< HEAD
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Perusahaan</label>
                       <div class="col-md-8 col-lg-9">
                         <input name="perusahaan" type="text" class="form-control" id="perusahaan" value="{{ auth()->user()->perusahaan }}">
+=======
+                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">divisi</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="divisi" type="text" class="form-control" id="divisi" value="{{ auth()->user()->divisi }}">
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
                       </div>
                     </div>
 

@@ -31,6 +31,7 @@ class PelatihanController extends Controller
 
     public function index()
     {
+<<<<<<< HEAD
 
         $pelatihanData = $this->pelatihanRepository->getAllWithUsername();
         $nrpOptions = User::select('nrp')->distinct()->get();
@@ -38,6 +39,35 @@ class PelatihanController extends Controller
         return view('/pelatihan/pelatihan', [
             'pelatihanData' => $pelatihanData,
             'nrpOptions' => $nrpOptions,
+=======
+        
+        $pelatihanData = $this->pelatihanRepository->getAllWithUsername();
+        $nrpOptions = User::select('nrp')->distinct()->get();
+
+        return view('/pelatihan/pelatihan', [
+            'pelatihanData' => $pelatihanData,
+            'nrpOptions' => $nrpOptions,
+        ]);
+    }
+
+    public function report(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        // Gunakan filter waktu jika ada
+        $query = $this->pelatihanRepository->getAllWithDate();
+        if ($startDate && $endDate) {
+            $query->whereBetween('m_pelatihan.waktu', [$startDate, $endDate]);
+        }
+
+        $pelatihanData = $query->get();
+
+        return view('/report/report_pelatihan', [
+            'pelatihanData' => $pelatihanData,
+            'startDate' => $startDate,  // Pass start_date to the view
+            'endDate' => $endDate,      // Pass end_date to the view
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         ]);
     }
 
@@ -128,6 +158,7 @@ class PelatihanController extends Controller
     public function create(Request $request)
 
     {
+<<<<<<< HEAD
         // $this->validate($request, [
         //         'nama_pelatihan_add' => 'required|string',   
         //     ]);
@@ -140,6 +171,18 @@ class PelatihanController extends Controller
 
         $result = $this->pelatihanRepository->create($data, $userRole);
 
+=======
+        
+        // $this->validate($request, [
+        //         'nama_pelatihan_add' => 'required|string',   
+        //     ]);
+        $userRole = auth()->user()->id_role; 
+        $data = $request->except('_token');
+        //$data = $request->all();
+
+        $result = $this->pelatihanRepository->create($data, $userRole);
+        
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         if ($result) {
             return Response::json(['status' => 'success']);
         } else {
@@ -150,10 +193,16 @@ class PelatihanController extends Controller
     public function edit($id, Request $request)
     {
         $data = $request->all();
+<<<<<<< HEAD
         $data = $request->except('STATUS'); // baru
         $userRole = auth()->user()->id_role;
         $result = $this->pelatihanRepository->edit($data, $id, $userRole);
 
+=======
+        $userRole = auth()->user()->id_role; 
+        $result = $this->pelatihanRepository->edit($data, $id, $userRole);
+        
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         if ($result) {
             return response()->json(['status' => 'success']);
         } else {
@@ -169,7 +218,11 @@ class PelatihanController extends Controller
         $selectedPelatihanId = $request->input('pelatihan_id');
         //dd($selectedPelatihanId);
         $result = $this->pelatihanRepository->send($userId, $userRole, $sendName, $selectedPelatihanId);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         return response()->json(['message' => $result]);
     }
 
@@ -177,7 +230,11 @@ class PelatihanController extends Controller
     {
 
         $selectedPelatihanId = $request->input('pelatihan_id');
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         $result = $this->pelatihanRepository->delete($selectedPelatihanId);
 
         return response()->json(['message' => $result]);
@@ -206,7 +263,11 @@ class PelatihanController extends Controller
         $selectedPelatihanId = $request->input('pelatihan_id');
         $pesanRevisi = $request->input('revisi');
 
+<<<<<<< HEAD
         $result = $this->pelatihanRepository->revisi($revisiName, $userRole, $selectedPelatihanId, $pesanRevisi, $userId);
+=======
+        $result = $this->pelatihanRepository->revisi($revisiName,$userRole, $selectedPelatihanId, $pesanRevisi, $userId);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
         return response()->json(['message' => $result]);
     }
@@ -235,7 +296,7 @@ class PelatihanController extends Controller
             'nama' => $user->name,
             'jabatan' => $user->jabatan,
             'departemen' => $user->departemen,
-            'perusahaan' => $user->perusahaan,
+            'divisi' => $user->divisi,
         ]);
     }
 
@@ -246,6 +307,7 @@ class PelatihanController extends Controller
 
     public function exportToWord($id)
     {
+<<<<<<< HEAD
         $templatePath = base_path('resources/views/pelatihan/Form Permohonan Training PT Mitrabara Adiperdana Tbk.docx');
         $phpWord = new TemplateProcessor($templatePath);
 
@@ -277,11 +339,31 @@ class PelatihanController extends Controller
         $outputPath = $outputDirectory . $filename;
 
 
+=======
+        $templatePath = base_path('resources/views/pelatihan/pelatihan.docx');
+        $phpWord = new TemplateProcessor($templatePath);
+    
+        $data = $this->pelatihanRepository->getById($id);
+    
+        $phpWord->setValue('nrp', $data->nrp);
+        $phpWord->setValue('nama', $data->name);
+        $phpWord->setValue('jabatan', $data->jabatan);
+        $phpWord->setValue('departemen', $data->departemen);
+        $phpWord->setValue('nohp', $data->phone_number);
+        $phpWord->setValue('alamat', $data->alamat);
+
+        $outputDirectory = storage_path('app/public/exports/');
+        $filename = "Pelatihan.docx";
+        $outputPath = $outputDirectory . $filename;
+    
+
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         $phpWord->saveAs($outputPath);
 
         return response()->download($outputPath)->deleteFileAfterSend(true);
     }
 
+<<<<<<< HEAD
     // public function exportToWord($id)
     // {
     //     // Load the Word template
@@ -342,4 +424,6 @@ class PelatihanController extends Controller
     //     // Return the PDF as response
     //     return response()->download($pdfPath)->deleteFileAfterSend(true);
     // }
+=======
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 }

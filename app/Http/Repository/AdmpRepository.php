@@ -1,29 +1,48 @@
+<<<<<<< HEAD
 <?php
 
 namespace App\Http\Repository;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+=======
+<?php namespace App\Http\Repository;
+
+use Illuminate\Support\Facades\DB;
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 use App\Http\Helpers\BaseHelper;
 
 use function Ramsey\Uuid\v1;
 
+<<<<<<< HEAD
 class admpRepository
+=======
+Class admpRepository
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 {
     public function getById($id)
     {
         $data = DB::table('pocket_moving_tbl_t_admp')
+<<<<<<< HEAD
             ->join('users', 'pocket_moving_tbl_t_admp.NRP', '=', 'users.nrp')
             ->where('pocket_moving_tbl_t_admp.PID', $id)
             ->first(['pocket_moving_tbl_t_admp.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan', 'users.phone_number', 'users.alamat']);
 
         // $data->username = $data->nama;
+=======
+            ->join('users', 'pocket_moving_tbl_t_admp.nrp', '=', 'users.nrp')
+            ->where('pocket_moving_tbl_t_admp.id', $id)
+            ->first(['pocket_moving_tbl_t_admpp.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.divisi']);
+        
+            $data->username = $data->nama;
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         return $data;
     }
 
     public function create($data)
     {
         return DB::table('pocket_moving_tbl_t_admp')->insert([
+<<<<<<< HEAD
             'PID' =>  Str::random(4),
             'NRP' => $data['nrp-dropdown'],
             'NAMA' => $data['nama_admp_add'],
@@ -36,12 +55,25 @@ class admpRepository
             // 'CREATE_BY' => auth()->user()->id,
             // 'CREATE_NAME' => auth()->user()->username,
 
+=======
+            'nrp' => $data['nrp-dropdown'],
+            'NAMA' => $data['name-add'],
+            'ADMP_JA_START_DATE' => $data['start_admp'],
+            'ADMP_JA_FINISH_DATE' => $data['finis_admp'],
+            'JA_RESULT_DESCRIPTION' => $data['result_description'],
+            'JA_TARGET_DESCRIPTION' => $data['target_description'],
+            'JA_SHORT_DESCRIPTION' => $data['short_description'],
+            'keterangan' => $data['ket_admp'],
+            'status' => 1
+            
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         ]);
     }
 
     public function getAllWithDate()
     {
         return DB::table('pocket_moving_tbl_t_admp')
+<<<<<<< HEAD
             ->join('users', 'pocket_moving_tbl_t_admp.NRP', '=', 'users.nrp')
             ->select(
                 'pocket_moving_tbl_t_admp.*',
@@ -50,11 +82,23 @@ class admpRepository
                 'users.perusahaan as perusahaan'
             )
             ->orderBy('pocket_moving_tbl_t_admp.ADMP_JA_START_DATE', 'desc');
+=======
+            ->join('users', 'pocket_moving_tbl_t_admp.nrp', '=', 'users.nrp')
+            ->select(
+                'pocket_moving_tbl_t_admp.*',
+                'users.name as username',
+            )
+            ->orderBy('pocket_moving_tbl_t_admp.ADMP_JA_START_DATE', 'desc'); 
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     }
 
     public function edit($data, $id, $userRole)
     {
+<<<<<<< HEAD
         $kodeStatus = 1;
+=======
+        $kodeStatus = 1; 
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         switch ($userRole) {
             case 1:
                 $kodeStatus = 1;
@@ -76,6 +120,7 @@ class admpRepository
                 break;
         }
         return DB::table('pocket_moving_tbl_t_admp')
+<<<<<<< HEAD
             ->where('PID', $id)
             ->update([
                 'NRP' => $data['nrp-dropdown'],
@@ -86,6 +131,17 @@ class admpRepository
                 'JA_TARGET_DESCRIPTION' => $data['ja_target'],
                 'JA_SHORT_DESCRIPTION' => $data['ja_short'],
                 'status' => $kodeStatus,
+=======
+            ->where('id', $id)
+            ->update([
+                'nrp' => $data['nrp-dropdown'],
+                'nama' => $data['nama_admp_add'],
+                'jenis' => $data['jenis_admp_add'],
+                'informasi' => $data['informasi_admp'],
+                'waktu' => $data['waktu_admp'],
+                'tempat' => $data['tempat_admp'],
+                'kode_status' => $kodeStatus,
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             ]);
     }
 
@@ -95,6 +151,7 @@ class admpRepository
     }
 
     public function getAllWithUsername()
+<<<<<<< HEAD
     {
         $data = DB::table('pocket_moving_tbl_t_admp')
             ->join('users', 'pocket_moving_tbl_t_admp.NRP', '=', 'users.nrp')
@@ -103,15 +160,30 @@ class admpRepository
 
         return $data;
     }
+=======
+{
+    $data = DB::table('pocket_moving_tbl_t_admp')
+        ->join('users', 'pocket_moving_tbl_t_admp.nrp', '=', 'users.nrp')
+        ->select('pocket_moving_tbl_t_admp.*', 'users.name as username') 
+        ->get();
+
+    return $data;
+}
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
     public function send($userId, $userRole, $sendName, $selectedadmpId)
     {
 
+<<<<<<< HEAD
         $admp = DB::table('pocket_moving_tbl_t_admp')->where('PID', $selectedadmpId)->first();
+=======
+        $admp = DB::table('pocket_moving_tbl_t_admp')->where('id', $selectedadmpId)->first();
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         if (!$admp) {
             return "admp not found";
         }
 
+<<<<<<< HEAD
         $currentKodeStatus = $admp->status;
         $newKodeStatus = $currentKodeStatus + 1;
 
@@ -161,11 +233,26 @@ class admpRepository
                 ]);
         }
 
+=======
+        $currentKodeStatus = $admp->kode_status;
+        $newKodeStatus = $currentKodeStatus + 1;
+    
+        DB::table('pocket_moving_tbl_t_admp')
+            ->where('id', $selectedadmpId)
+            ->update([
+                'send_by' => $userId,
+                'send_name' => $sendName,
+                'send_on' => now(),
+                'kode_status' => $newKodeStatus
+            ]);
+    
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         return "Status updated successfully";
     }
 
     public function revisi($revisiName, $selectedadmpId, $userRole, $pesanRevisi, $userId)
     {
+<<<<<<< HEAD
         $kodeStatus = 8; // Default value
 
         switch ($userRole) {
@@ -234,10 +321,41 @@ class admpRepository
                     'status' => 11,
                 ]);
         }
+=======
+        $kodeStatus = 9; // Default value
+
+        switch ($userRole) {
+            case 2:
+                $kodeStatus = 9;
+                break;
+            case 3:
+                $kodeStatus = 10;
+                break;
+            case 4:
+                $kodeStatus = 11;
+                break;
+            case 5:
+                $kodeStatus = 12;
+                break;
+            default:
+                $kodeStatus = 9;
+                break;
+        }
+
+        DB::table('pocket_moving_tbl_t_admp')
+            ->where('id', $selectedadmpId)
+            ->update([
+                'revisi_by' => $userId,
+                'revisi_name' => $revisiName,
+                'kode_status' => $kodeStatus,
+                'revisi_desc' => $pesanRevisi
+            ]);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
         return 'Data admp berhasil di "Revisi"';
     }
 
+<<<<<<< HEAD
     public function reject($rejectName, $selectedadmpId, $pesanReject, $userId, $userRole)
     {
 
@@ -288,6 +406,19 @@ class admpRepository
                     ]);
                 break;
         }
+=======
+    public function reject($rejectName, $selectedadmpId, $pesanReject, $userId)
+    {
+    
+        DB::table('pocket_moving_tbl_t_admp')
+            ->where('id', $selectedadmpId)
+            ->update([
+                'reject_by' => $userId,
+                'reject_name' => $rejectName,
+                'kode_status' => 8,
+                'reject_desc' => $pesanReject
+            ]);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
         return 'Data admp Berhasil di "Reject"';
     }
@@ -295,10 +426,21 @@ class admpRepository
     public function delete($selectedadmpId)
     {
         try {
+<<<<<<< HEAD
             DB::table('pocket_moving_tbl_t_admp')->where('PID', $selectedadmpId)->delete();
+=======
+            DB::table('pocket_moving_tbl_t_admp')->where('id', $selectedadmpId)->delete();
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             return 'Data admp Berhasil dihapus.';
         } catch (\Exception $e) {
             return 'Gagal menghapus data admp: ' . $e->getMessage();
         }
     }
+<<<<<<< HEAD
 }
+=======
+   
+}
+
+?>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9

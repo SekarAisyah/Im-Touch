@@ -1,13 +1,20 @@
+<<<<<<< HEAD
 <?php
 
 namespace App\Http\Repository;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+=======
+<?php namespace App\Http\Repository;
+
+use Illuminate\Support\Facades\DB;
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 use App\Http\Helpers\BaseHelper;
 
 use function Ramsey\Uuid\v1;
 
+<<<<<<< HEAD
 class CoachingRepository
 {
     public function getById($id)
@@ -18,11 +25,24 @@ class CoachingRepository
             ->first(['pocket_moving_tbl_t_coaching.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan', 'users.phone_number', 'users.alamat']);
 
         // $data->username = $data->nama;
+=======
+Class CoachingRepository
+{
+    public function getById($id)
+    {
+        $data = DB::table('m_coaching')
+            ->join('users', 'm_coaching.nrp', '=', 'users.nrp')
+            ->where('m_coaching.id', $id)
+            ->first(['m_coaching.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.divisi']);
+        
+            $data->username = $data->nama;
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         return $data;
     }
 
     public function create($data)
     {
+<<<<<<< HEAD
         return DB::table('pocket_moving_tbl_t_coaching')->insert([
             'PID' =>  Str::random(4),
             'NRP' => $data['nrp-dropdown'],
@@ -34,11 +54,25 @@ class CoachingRepository
             // 'CREATE_BY' => auth()->user()->id,
             // 'CREATE_NAME' => auth()->user()->username,
 
+=======
+        return DB::table('m_coaching')->insert([
+            'nrp' => $data['nrp-dropdown'],
+            'nama' => $data['nama_coaching_add'],
+            'jenis' => $data['jenis_coaching_add'],
+            'informasi' => $data['informasi_coaching'],
+            'waktu' => $data['waktu_coaching'],
+            'tempat' => $data['tempat_coaching'],
+            'kode_status' => 1, 
+            'created_by' => auth()->user()->id,
+            'created_name' => auth()->user()->username,
+        
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         ]);
     }
 
     public function getAllWithDate()
     {
+<<<<<<< HEAD
         return DB::table('pocket_moving_tbl_t_coaching')
             ->join('users', 'pocket_moving_tbl_t_coaching.NRP', '=', 'users.nrp')
             ->select(
@@ -48,12 +82,27 @@ class CoachingRepository
                 'users.perusahaan as perusahaan'
             )
             ->orderBy('pocket_moving_tbl_t_coaching.COACHING_DATE', 'desc');
+=======
+        return DB::table('m_coaching')
+            ->join('users', 'm_coaching.nrp', '=', 'users.nrp')
+            ->select(
+                'm_coaching.*',
+                'users.name as username',
+                'users.departemen as departemen',
+                'users.divisi as divisi'
+            )
+            ->orderBy('m_coaching.waktu', 'desc'); 
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
     }
 
     public function edit($data, $id, $userRole)
     {
         $kodeStatus = 1;
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         switch ($userRole) {
             case 1:
                 $kodeStatus = 1;
@@ -74,6 +123,7 @@ class CoachingRepository
                 $kodeStatus = 1;
                 break;
         }
+<<<<<<< HEAD
         return DB::table('pocket_moving_tbl_t_coaching')
             ->where('PID', $id)
             ->update([
@@ -83,6 +133,20 @@ class CoachingRepository
                 'KOMPETENSI_CODE' => $data['komp-dropdown'],
                 'KOMPETENSI_NAME' => $data['kom_name'],
                 'status' => $kodeStatus,
+=======
+        return DB::table('m_coaching')
+            ->where('id', $id)
+            ->update([
+                'nrp' => $data['nrp-dropdown'],
+                'nama' => $data['nama_coaching_add'],
+                'jenis' => $data['jenis_coaching_add'],
+                'informasi' => $data['informasi_coaching'],
+                
+                'waktu' => $data['waktu_coaching'],
+                'tempat' => $data['tempat_coaching'],
+                
+                'kode_status' => $kodeStatus,
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             ]);
     }
 
@@ -92,6 +156,7 @@ class CoachingRepository
     }
 
     public function getAllWithUsername()
+<<<<<<< HEAD
     {
         $data = DB::table('pocket_moving_tbl_t_coaching')
             ->join('users', 'pocket_moving_tbl_t_coaching.NRP', '=', 'users.nrp')
@@ -100,15 +165,30 @@ class CoachingRepository
 
         return $data;
     }
+=======
+{
+    $data = DB::table('m_coaching')
+        ->join('users', 'm_coaching.nrp', '=', 'users.nrp')
+        ->select('m_coaching.*', 'users.name as username','users.departemen as departemen', 'users.divisi as divisi') // Sesuaikan alias dengan nama yang Anda inginkan
+        ->get();
+
+    return $data;
+}
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
     public function send($userId, $userRole, $sendName, $selectedcoachingId)
     {
 
+<<<<<<< HEAD
         $coaching = DB::table('pocket_moving_tbl_t_coaching')->where('PID', $selectedcoachingId)->first();
+=======
+        $coaching = DB::table('m_coaching')->where('id', $selectedcoachingId)->first();
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         if (!$coaching) {
             return "Coaching not found";
         }
 
+<<<<<<< HEAD
         $currentKodeStatus = $coaching->status;
         $newKodeStatus = $currentKodeStatus + 1;
 
@@ -160,11 +240,26 @@ class CoachingRepository
                 ]);
         }
 
+=======
+        $currentKodeStatus = $coaching->kode_status;
+        $newKodeStatus = $currentKodeStatus + 1;
+    
+        DB::table('m_coaching')
+            ->where('id', $selectedcoachingId)
+            ->update([
+                'send_by' => $userId,
+                'send_name' => $sendName,
+                'send_on' => now(),
+                'kode_status' => $newKodeStatus
+            ]);
+    
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
         return "Status updated successfully";
     }
 
     public function revisi($revisiName, $selectedCoachingId, $userRole, $pesanRevisi, $userId)
     {
+<<<<<<< HEAD
         $kodeStatus = 8; // Default value
 
         // update at
@@ -239,10 +334,41 @@ class CoachingRepository
                     'status' => 11,
                 ]);
         }
+=======
+        $kodeStatus = 9; // Default value
+
+        switch ($userRole) {
+            case 2:
+                $kodeStatus = 9;
+                break;
+            case 3:
+                $kodeStatus = 10;
+                break;
+            case 4:
+                $kodeStatus = 11;
+                break;
+            case 5:
+                $kodeStatus = 12;
+                break;
+            default:
+                $kodeStatus = 9;
+                break;
+        }
+
+        DB::table('m_coaching')
+            ->where('id', $selectedCoachingId)
+            ->update([
+                'revisi_by' => $userId,
+                'revisi_name' => $revisiName,
+                'kode_status' => $kodeStatus,
+                'revisi_desc' => $pesanRevisi
+            ]);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
         return 'Data coaching berhasil di "Revisi"';
     }
 
+<<<<<<< HEAD
     public function reject($rejectName, $selectedcoachingId, $pesanReject, $userId,$userRole)
     {
 
@@ -293,6 +419,19 @@ class CoachingRepository
                     ]);
                 break;
         }
+=======
+    public function reject($rejectName, $selectedcoachingId, $pesanReject, $userId)
+    {
+    
+        DB::table('m_coaching')
+            ->where('id', $selectedcoachingId)
+            ->update([
+                'reject_by' => $userId,
+                'reject_name' => $rejectName,
+                'kode_status' => 8,
+                'reject_desc' => $pesanReject
+            ]);
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
 
         return 'Data Coaching Berhasil di "Reject"';
     }
@@ -300,10 +439,21 @@ class CoachingRepository
     public function delete($selectedcoachingId)
     {
         try {
+<<<<<<< HEAD
             DB::table('pocket_moving_tbl_t_coaching')->where('PID', $selectedcoachingId)->delete();
+=======
+            DB::table('m_coaching')->where('id', $selectedcoachingId)->delete();
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
             return 'Data Coaching Berhasil dihapus.';
         } catch (\Exception $e) {
             return 'Gagal menghapus data coaching: ' . $e->getMessage();
         }
     }
+<<<<<<< HEAD
 }
+=======
+   
+}
+
+?>
+>>>>>>> 836605326ef9beb21bf22ae1fcd7a2a4ffc0e9a9
