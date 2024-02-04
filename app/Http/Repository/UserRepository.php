@@ -6,51 +6,11 @@ use App\Http\Helpers\BaseHelper;
 
 class UserRepository
 {
-    // public static function authenticate(array $credentials)
-    // {
-    //     $user = DB::table('users')
-    //                 ->where(function ($query) use ($credentials) {
-    //                     $query->where('password', $credentials['password'])
-    //                           ->orWhere('email', $credentials['email']);
-    //                 })
-    //                 ->first();
-    
-    //     if ($user) {
-    //         return true;
-    //     }
-    
-    //     return false;
-    // }
-
-//     public static function authenticate(array $credentials)
-// {
-//     $user = DB::table('users')
-//                 ->where(function ($query) use ($credentials) {
-//                     $query->where('password', $credentials['password'])
-//                           ->orWhere('email', $credentials['email']);
-//                 })
-//                 ->first();
-
-//     if ($user) {
-//         return true;
-//     }
-
-//     return false;
-// }
-
-// public function createUser(array $data)
-//     {
-//         $result = DB::table('users')->insert($data);
-
-//     return $result;
-//     }
-
-public function createUser(array $data)
+  
+    public function createUser(array $data)
     {
-        // Gunakan Hash::make untuk mengamankan kata sandi sebelum disimpan
         $data['password'] = Hash::make($data['password']);
-
-        // Gunakan metode insertGetId untuk mendapatkan ID yang baru disisipkan
+        $data['id_role'] = (int) $data['id_role'];
         $userId = DB::table('users')->insertGetId($data);
 
         return $userId;
@@ -58,8 +18,8 @@ public function createUser(array $data)
 
     public function authenticate(array $credentials)
     {
-        // Ganti query dengan query SQL Server yang sesuai
-        $user = DB::table('users')->where('email', $credentials['email'])->first();
+    
+        $user = DB::table('users')->where('username', $credentials['username'])->first();
 
         if ($user && $this->verifyPassword($credentials['password'], $user->password)) {
             return true;
@@ -69,14 +29,103 @@ public function createUser(array $data)
     }
 
     protected function verifyPassword($password, $hashedPassword)
-    {
-        // Sesuaikan dengan algoritma hashing yang digunakan di SQL Server
-        // Dalam contoh ini, diasumsikan bahwa kolom 'password' disimpan dengan algoritma HASHBYTES('SHA2_256', ...)
-        $sqlServerHash = hash('sha256', $password); // Sesuaikan dengan algoritma SQL Server
-
-        // Verifikasi dengan hash yang dihasilkan dari SQL Server
+    {  
+        $sqlServerHash = hash('sha256', $password); 
         return $sqlServerHash === $hashedPassword;
     }
 
+    public function getData()
+    {
+        return DB::table('users')->get();
+    }
+
+    public function delete($selectedUserId)
+    {
+        try {
+            DB::table('users')->where('id', $selectedUserId)->delete();
+            return 'Data User Berhasil dihapus.';
+        } catch (\Exception $e) {
+            return 'Gagal menghapus data user: ' . $e->getMessage();
+        }
+    }
+
+    public function getById($id)
+    {
+        $data = DB::table('users')
+            ->where('users.id', $id)
+            ->first();
+    
+        return $data;
+    }
+
+    public function edit($data, $id)
+    {
+       
+        $data['password'] = Hash::make($data['password']);
+        return DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'nrp' => $data['nrp'],
+                'name' => $data['name'],
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => $data['password'],
+                'jabatan' => $data['jabatan'],
+                'departemen' => $data['departemen'],
+                'perusahaan' => $data['perusahaan'],
+                'phone_number' => $data['phone_number'],
+                'alamat' => $data['alamat'],
+                'id_role' => $data['id_role'],
+            ]);
+    }
+
+    public function editProfile($data, $id)
+    {
+        try {
+            DB::table('users')
+                ->where('id', $id)
+                ->update([
+                    'nrp' => $data['nrp'],
+                    'name' => $data['name'],
+                    'username' => $data['username'],
+                    'email' => $data['email'],
+                    'jabatan' => $data['jabatan'],
+                    'departemen' => $data['departemen'],
+                    'perusahaan' => $data['perusahaan'],
+                    'phone_number' => $data['phone_number'],
+                    'alamat' => $data['alamat'],
+                ]);
+    
+            return ['status' => 'success'];
+        } catch (\Exception $e) {
+            return ['status' => 'error', 'message' => $e->getMessage()];
+        }
+    }
+
+    public function getCurrentUserPassword($userId)
+    {
+        return DB::table('users')->where('id', $userId)->value('password');
+    }
+
+    public function changePassword($userId, $newPassword)
+    {
+        try {
+            DB::table('users')->where('id', $userId)->update(['password' => $newPassword]);
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    public function verifyNewPassword($userId, $newPassword)
+    {
+        // Mengambil password saat ini dari database
+        $currentUserPassword = $this->getCurrentUserPassword($userId);
+
+        // Verifikasi bahwa password baru sesuai dengan konfirmasi password
+        return Hash::check($newPassword, $currentUserPassword);
+    }
+    
     
 }

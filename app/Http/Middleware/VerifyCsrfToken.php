@@ -13,6 +13,11 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'pelatihan/create',
-        'register'
+        'report-pelatihan/search',
+        '/register',
+        '/',
+        '/dashboard'
+
+
     ];
 }

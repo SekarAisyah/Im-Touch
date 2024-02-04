@@ -48,7 +48,8 @@ h6 {
 }
 
 #datatable th, td {
-  font-size: 12px; /* Ubah ukuran font untuk sel data */
+  font-size: 12px; 
+  
 }
 
 /*--------------------------------------------------------------
@@ -373,8 +374,8 @@ h6 {
 }
 
 .logo img {
-  max-height: 50px;
-  margin-right: 0 auto;
+  max-height: 27px;
+  margin-right: 20px;
 }
 
 .logo span {
@@ -610,10 +611,10 @@ h6 {
   top: 60px;
   left: 0;
   bottom: 0;
-  width: 225px;
+  width: 230px;
   z-index: 996;
   transition: all 0.3s;
-  padding: 20px 15px 15px 20px;
+  padding: 20px 10px 0px 10px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
@@ -736,8 +737,6 @@ h6 {
   padding: 0px 0 0 0;
   margin: 0;
   list-style: none;
- 
-  
 }
 
 .sidebar-nav .nav-content a {
@@ -745,7 +744,7 @@ h6 {
   align-items: center;
   font-size: 13px;
   font-weight: 600;
-  color: #fff;
+  color: #f9a603;
   transition: 0.3;
   padding: 5px 0 5px 30px;
   transition: 0.3s;
@@ -761,7 +760,7 @@ h6 {
 
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
-  color: #f9a603;
+  color: #fff;
 }
 
 .sidebar-nav .nav-content a.active i {
@@ -1371,19 +1370,18 @@ hr{
 }
 
 .signature-column {
-  width: 50%; /* Setengah lebar tabel */
+  width: 50%; 
 }
 
 .keterangan {
-  height: 50px; /* Tinggi kolom tanda tangan */
+  height: 50px; 
 }
 
 .signature {
-  height: 100px; /* Tinggi kolom tanda tangan */
+  height: 100px; 
 }
 
 /* View */
-/* Gaya tambahan untuk membuat modal lebih menarik */
 .modal-view {
   color: #333;
 }
@@ -1409,6 +1407,10 @@ hr{
   margin: 10px 15px 5px 15px ;
 }
 
+.admp-details {
+  margin: 10px 15px 5px 15px ;
+}
+
 .detail {
   display: flex;
   justify-content: space-between;
@@ -1416,13 +1418,20 @@ hr{
 }
 
 .detail label {
-  font-weight: bold;
-  flex-basis: 30%; 
+  
+  flex-basis: 45%; 
+  
 }
 
 .detail span {
   flex-basis: 100%; 
   text-align: justify;
+}
+
+.labelku {
+  margin-bottom: 0px; 
+  padding: 0px;
+  font-weight: bold;
 }
 
 

@@ -1,255 +1,402 @@
-<?php namespace App\Http\Repository;
+<?php
+
+namespace App\Http\Repository;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str; //Baru
 use App\Http\Helpers\BaseHelper;
 
 use function Ramsey\Uuid\v1;
 
-Class pelatihanRepository
+class pelatihanRepository
 {
-    // public $database = 'mysql';
-    // public $table = 'm_pelatihan';
-    // // public $table_file = 'm_opini_kepatuhan_file';
-    // // public $primary_key = 'menu_id';
-    // public $event = 'Pelatihan';
-
-
-    // //=============================================== POSTDATA ===============================================
-    // public function Add($data){
-    //     // dd($data);
-    //     $proses = DB::connection($this->database)->table($this->table)->insertGetId(
-    //             array(
-    //                 'jenisPelatihan' => $data['jenis_pelatihan'],
-    //                 'informasi_pelatihan' => $data['informasi_pelatihan'],
-    //                 'nama_pelatihan' => $data['nama_pelatihan'],
-    //                 'narasumber' => $data['unit_tglmemo'],
-    //                 'alasan_pelatihan' => $data['tgl_mulai'],
-    //                 'sharing_pelatihan' => $data['id_peraturan_eks_terkait'],
-    //                 'waktu_pelatihan' => $data['judul_peraturan_eks_terkait'],
-    //                 'tempat_pelatihan' => $data['checklist'],
-    //                 'biaya_pelatihan' => $data['status_opini'],
-    //                 'kode_status' => $data['kode_status'],
-    //                 // 'created_by' => $data['id_user'],
-    //                 // 'created_name' => $data['nama_user'],
-    //                 'created_on' => date('Y-m-d H:i:s'),
-    //             )
-    //         );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Pelatihan Berhasil Disimpan', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Pelatihan Gagal Disimpan', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function Edit($data)
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $proses = DB::connection($this->database)->table($this->table)->where('id', $data['id'])
-    //     ->update(
-    //         array(
-    //             'id_jenis_proposal' => $data['id_jenis_proposal'],
-    //             'unit_perihal' => $data['unit_perihal'],
-    //             'unit_nomor_memo' => $data['unit_nomor_memo'],
-    //             'unit_tglmemo' => $data['unit_tglmemo'],
-    //             'id_peraturan_eks_terkait' => $data['id_peraturan_eks_terkait'],
-    //             'judul_peraturan_eks_terkait' => $data['judul_peraturan_eks_terkait'],
-    //             'checklist' => $data['checklist'],
-    //             'updated_by' => $data['id_user'],
-    //             'updated_name' => $data['nama_user'],
-    //             'updated_on' => date('Y-m-d H:i:s'),
-    //         )
-    //     );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Opini Kepatuhan Berhasil Diubah', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Opini Kepatuhan Gagal Diubah', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function Deleted($data)
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $proses = DB::connection($this->database)->table($this->table)->where('id', $data['id'])
-    //     ->update(
-    //             array(
-    //                 'status_opini' => $data['status_opini'],
-    //                 'deleted_by' => $data['id_user'],
-    //                 'deleted_name' => $data['nama_user'],
-    //                 'deleted_on' => date('Y-m-d H:i:s'),
-    //             )
-    //         );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Opini Kepatuhan Berhasil Dihapus', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Opini Kepatuhan Gagal Dihapus', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function Send($data)
-    // {
-    //     date_default_timezone_set("Asia/Jakarta");
-    //     $proses = DB::connection($this->database)->table($this->table)->where('id', $data['id'])
-    //     ->update(
-    //             array(
-    //                 'kode_status' => $data['kode_status'],
-    //                 'send_by' => $data['id_user'],
-    //                 'send_name' => $data['nama_user'],
-    //                 'send_on' => date('Y-m-d H:i:s'),
-    //             )
-    //         );
-
-    //     if($proses){
-    //         $hasil = array('status' => 1, 'message' => 'Opini Kepatuhan Berhasil Dikirim', 'type' => 'success');
-    //     }else{
-    //         $hasil = array('status' => 0, 'message' => 'Opini Kepatuhan Gagal Dikirim', 'type' => 'error');
-    //     }
-
-    //     return $hasil;
-    // }
-
-    // public function getById($id)
-    // {
-    //     return DB::table('m_pelatihan')->where('id', $id)->first();
-    // }
-
-    // public function getById($id)
-    // {
-    //     return DB::table('m_pelatihan')
-    //         ->join('users', 'm_pelatihan.nrp', '=', 'users.nrp')
-    //         ->where('m_pelatihan.id', $id)
-    //         ->first(['m_pelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan']);
-
-    // }
     public function getById($id)
     {
-        $data = DB::table('m_pelatihan')
-            ->join('users', 'm_pelatihan.nrp', '=', 'users.nrp')
-            ->where('m_pelatihan.id', $id)
-            ->first(['m_pelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan']);
+        $data = DB::table('pocket_moving_tbl_t_pelatihan')
+            ->join('users', 'pocket_moving_tbl_t_pelatihan.NRP', '=', 'users.nrp')
+            ->where('pocket_moving_tbl_t_pelatihan.PID', $id)
+            ->first(['pocket_moving_tbl_t_pelatihan.*', 'users.name', 'users.jabatan', 'users.departemen', 'users.perusahaan', 'users.phone_number', 'users.alamat']);
+
+        //$data->username = $data->nama;
+        return $data;
+    }
+
+    public function create($data, $userRole)
+    {
+
+        return DB::table('pocket_moving_tbl_t_pelatihan')->insert([
+            'PID' => Str::random(4),
+            'NRP' => $data['nrp-dropdown'],
+            'NAMA' => $data['nama_pelatihan_add'],
+            'BERANGKAT_TRAINING' => $data['waktu_berangkat_pelatihan'],
+            'MULAI_TRAINING' => $data['waktu_mulai_pelatihan'],
+            'SELESAI_TRAINING' => $data['waktu_selesai_pelatihan'],
+            'KEMBALI_TRAINING' => $data['waktu_kembali_pelatihan'],
+            'STATUS' => 1,
+            'KETERANGAN' => $data['keterangan'],
+            'KOMPETENSI_DESC' => $data['kompetensi_desc'],
+            'NARASUMBER' => $data['narasumber'],
+            'NAMA_PENYELENGGARA' => $data['nama_penyelenggara_add'],
+            'AREA' => $data['area'],
+            'IS_JOBSITE' => $data['is_jobsite'],
+            'CURRENCY' => $data['currency'],
+            'BIAYA' => $data['biaya_pelatihan'],
+            'MANFAAT_BAGI_KARYAWAN' => $data['manfaat_karyawan'],
+            'MANFAAT_BAGI_PERUSAHAAN' => $data['manfaat_perusahaan'],
+            'TRAINING_ATMP_CODE' => $data['atmp_code'],
+            'TRAINING_ATMP_DESC' => $data['atmp_desc'],
+            // 'CREATE_BY' => auth()->user()->id,
+            // 'CREATE_NAME' => auth()->user()->username,
+
+        ]);
+    }
+
+    public function edit($data, $id, $userRole)
+    {
+        $kodeStatus = 1; // Default value
+
+        // Menentukan nilai kode_status berdasarkan nilai userRole
+        switch ($userRole) {
+            case 1:
+                $kodeStatus = 1;
+                break;
+            case 2:
+                $kodeStatus = 3;
+                break;
+            case 3:
+                $kodeStatus = 4;
+                break;
+            case 4:
+                $kodeStatus = 5;
+                break;
+            case 5:
+                $kodeStatus = 6;
+                break;
+            default:
+                $kodeStatus = 1;
+                break;
+        }
+        return DB::table('pocket_moving_tbl_t_pelatihan')
+            ->where('PID', $id)
+            ->update([
+                'NRP' => $data['nrp-dropdown'],
+                'NAMA' => $data['nama_pelatihan_add'],
+                'BERANGKAT_TRAINING' => $data['waktu_berangkat_pelatihan'],
+                'MULAI_TRAINING' => $data['waktu_mulai_pelatihan'],
+                'SELESAI_TRAINING' => $data['waktu_selesai_pelatihan'],
+                'KEMBALI_TRAINING' => $data['waktu_kembali_pelatihan'],
+                'STATUS' => $kodeStatus,
+                'KETERANGAN' => $data['keterangan'],
+                'KOMPETENSI_DESC' => $data['kompetensi_desc'],
+                'NARASUMBER' => $data['narasumber'],
+                'NAMA_PENYELENGGARA' => $data['nama_penyelenggara_add'],
+                'AREA' => $data['area'],
+                'IS_JOBSITE' => $data['is_jobsite'],
+                'CURRENCY' => $data['currency'],
+                'BIAYA' => $data['biaya_pelatihan'],
+                'MANFAAT_BAGI_KARYAWAN' => $data['manfaat_karyawan'],
+                'MANFAAT_BAGI_PERUSAHAAN' => $data['manfaat_perusahaan'],
+                'TRAINING_ATMP_CODE' => $data['atmp_code'],
+                'TRAINING_ATMP_DESC' => $data['atmp_desc'],
+            ]);
+    }
+
+    public function getAll()
+    {
+        return DB::table('pocket_moving_tbl_t_pelatihan')->get();
+    }
+
+    public function getAllWithUsername()
+    {
+        $data = DB::table('pocket_moving_tbl_t_pelatihan')
+            ->join('users', 'pocket_moving_tbl_t_pelatihan.NRP', '=', 'users.nrp')
+            ->select('pocket_moving_tbl_t_pelatihan.*', 'users.name as username', 'users.departemen as departemen', 'users.perusahaan as perusahaan') // Sesuaikan alias dengan nama yang Anda inginkan
+            ->get();
 
         return $data;
     }
 
-
-    public function create($data)
+    public function getAllWithDate()
     {
-        return DB::table('m_pelatihan')->insert([
-            'nrp' => $data['nrp'],
-            'nama' => $data['nama_pelatihan'],
-            'jenis' => $data['jenis_pelatihan'],
-            'informasi' => $data['informasi_pelatihan'],
-            'narasumber' => $data['narasumber'],
-            'alasan' => $data['alasan_pelatihan'],
-            'sharing' => $data['sharing_pelatihan'],
-            'waktu' => $data['waktu_pelatihan'],
-            'tempat' => $data['tempat_pelatihan'],
-            'biaya' => $data['biaya_pelatihan'],
-            'kode_status' => 1, 
-            'created_by' => auth()->user()->id,
-            'created_name' => auth()->user()->username,
-        
-        ]);
+        return DB::table('pocket_moving_tbl_t_pelatihan')
+            ->join('users', 'pocket_moving_tbl_t_pelatihan.NRP', '=', 'users.nrp')
+            ->select(
+                'pocket_moving_tbl_t_pelatihan.*',
+                'users.name as username',
+                'users.departemen as departemen',
+                'users.perusahaan as perusahaan'
+            )
+            ->orderBy('pocket_moving_tbl_t_pelatihan.MULAI_TRAINING', 'desc');
     }
 
-    public function edit($data, $id)
+    public function getAllWithUsernameAndDateRange($start_date, $end_date)
     {
-        return DB::table('m_pelatihan')
-            ->where('id', $id)
-            ->update([
-                'nama' => $data['nama_pelatihan'],
-                'informasi' => $data['informasi_pelatihan'],
-                'narasumber' => $data['narasumber'],
-                'alasan' => $data['alasan_pelatihan'],
-                'sharing' => $data['sharing_pelatihan'],
-                'waktu' => $data['waktu_pelatihan'],
-                'tempat' => $data['tempat_pelatihan'],
-                'biaya' => $data['biaya_pelatihan'],
-                'kode_status' => 1,
-            ]);
-    }
-    
+        $query = DB::table('pocket_moving_tbl_t_pelatihan')
+            ->join('users', 'pocket_moving_tbl_t_pelatihan.NRP', '=', 'users.nrp')
+            ->select('pocket_moving_tbl_t_pelatihan.*', 'users.name as username', 'users.departemen as departemen', 'users.perusahaan as perusahaan')
+            ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
+                // Ubah format input tanggal ke format yang diharapkan oleh database
+                $start_date = date('Y-m-d', strtotime($start_date));
+                $end_date = date('Y-m-d', strtotime($end_date));
 
-    public function getAll()
-    {
-        return DB::table('m_pelatihan')->get();
+                return $query->whereBetween('pocket_moving_tbl_t_pelatihan.MULAI_TRAINING', [$start_date, $end_date]);
+            })
+            ->get();
+
+        return $query;
     }
 
     public function send($userId, $userRole, $sendName, $selectedPelatihanId)
     {
 
-        $pelatihan = DB::table('m_pelatihan')->where('id', $selectedPelatihanId)->first();
+        $pelatihan = DB::table('pocket_moving_tbl_t_pelatihan')->where('PID', $selectedPelatihanId)->first();
         if (!$pelatihan) {
             return "Pelatihan not found";
         }
 
-        $currentKodeStatus = $pelatihan->kode_status;
+        // $kodeStatus = 1; // Default value
+        $currentKodeStatus = $pelatihan->STATUS;
         $newKodeStatus = $currentKodeStatus + 1;
-    
-        DB::table('m_pelatihan')
-            ->where('id', $selectedPelatihanId)
-            ->update([
-                'send_by' => $userId,
-                'send_name' => $sendName,
-                'send_on' => now(),
-                'kode_status' => $newKodeStatus
-            ]);
-    
+
+        if ($newKodeStatus == 2) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    'STATUS' => $newKodeStatus
+                ]);
+        } else if ($newKodeStatus == 3) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    'APPRV_ATASAN' => 1,
+                    'UPDATE_AT_ATASAN' => now(),
+                    'STATUS' => $newKodeStatus
+                ]);
+        } else if ($newKodeStatus == 4) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    'APPRV_HR' => 1,
+                    'UPDATE_AT_HR' => now(),
+                    'STATUS' => $newKodeStatus
+                ]);
+        } else if ($newKodeStatus == 5) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    'APPRV_HR_MNG' => 1,
+                    'UPDATE_AT_HR_MNG' => now(),
+                    'STATUS' => $newKodeStatus
+                ]);
+        } else if ($newKodeStatus == 6) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    'APPRV_DRC' => 1,
+                    'UPDATE_AT_DRC' => now(),
+                    'STATUS' => $newKodeStatus,
+                    'IS_PLAN_ATMP' => 'Yes',
+                    'TRAINING_DONE' => 'Yes',
+                ]);
+        }
+
         return "Status updated successfully";
-    
-        
     }
 
-    public function revisi($revisiName, $selectedPelatihanId, $pesanRevisi, $userId)
-    {
-    
-        DB::table('m_pelatihan')
-            ->where('id', $selectedPelatihanId)
-            ->update([
-                'revisi_by' => $userId,
-                'revisi_name' => $revisiName,
-                'kode_status' => 9,
-                'revisi_desc' => $pesanRevisi
-            ]);
+    // public function revisi($revisiName,$userRole, $selectedPelatihanId, $pesanRevisi, $userId)
+    // {
+    //     DB::table('pocket_moving_tbl_t_pelatihan')
+    //         ->where('id', $selectedPelatihanId)
+    //         ->update([
+    //             'revisi_by' => $userId,
+    //             'revisi_name' => $revisiName,
+    //             'kode_status' => 9,
+    //             'revisi_desc' => $pesanRevisi
+    //         ]);
 
-        return 'Revisi berhasil dikirim dan kode status diperbarui.';
+    //     return 'Data Pelatihan berhasil di "Revisi"';
+    // }
+
+    public function revisi($revisiName, $userRole, $selectedPelatihanId, $pesanRevisi, $userId)
+    {
+        $kodeStatus = 8; // Default value
+
+        $ket_atasan = null;
+        $ket_hr = null;
+        $ket_hr_mng = null;
+        $ket_drc = null;
+
+        //status approve
+        // $approve_atasan = null;
+        // $approve_hr = null;
+        // $approve_hr_mng = null;
+        // $approve_drc = null;
+
+        // update at
+        $upd_atasan = null;
+        $upd_hr = null;
+        $upd_hr_mng = null;
+        $upd_drc = null;
+
+        switch ($userRole) {
+            case 2:
+                $kodeStatus = 8;
+                $ket_atasan = $pesanRevisi;
+                // $approve_atasan = 0;
+                $upd_atasan = now();
+                break;
+            case 3:
+                $kodeStatus = 9;
+                $ket_hr =  $pesanRevisi;
+                // $approve_hr = 0;
+                $upd_hr = now();
+                break;
+            case 4:
+                $kodeStatus = 10;
+                $ket_hr_mng = $pesanRevisi;
+                // $approve_hr_mng = 0;
+                $upd_hr_mng = now();
+                break;
+            case 5:
+                $kodeStatus = 11;
+                $ket_drc = $pesanRevisi;
+                // $approve_drc = 0;
+                $upd_drc = now();
+                break;
+            default:
+                $kodeStatus = 8;
+                $newKodeStatus = $kodeStatus + 1;
+                if ($kodeStatus == 8) {
+                    $ket_atasan = $pesanRevisi;
+                    // $approve_atasan = 0;
+                    $upd_atasan = now();
+                } else if ($kodeStatus == 9) {
+                    $ket_hr =  $pesanRevisi;
+                    // $approve_hr = 0;
+                    $upd_hr = now();
+                } else if ($kodeStatus == 10) {
+                    $ket_hr_mng = $pesanRevisi;
+                    // $approve_hr_mng = 0;
+                    $upd_hr_mng = now();
+                } else if ($kodeStatus == 11) {
+                    $ket_drc = $pesanRevisi;
+                    // $approve_drc = 0;
+                    $upd_drc = now();
+                } else {
+                    // $ket_atasan = $pesanRevisi;
+                    // $approve_atasan = 0;
+                    $upd_atasan = now();
+                }
+                break;
+        }
+
+        if ($kodeStatus == 8) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    // 'APPRV_ATASAN' => $approve_atasan,
+                    'STATUS' => $kodeStatus,
+                    'UPDATE_AT_ATASAN' => $upd_atasan,
+                    'KETERANGAN_ATASAN' => $ket_atasan
+                ]);
+        } else if ($kodeStatus == 9) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    // 'APPRV_HR' => $approve_hr,
+                    'KETERANGAN_HR' => $ket_hr,
+                    'UPDATE_AT_HR' => $upd_hr,
+                    'STATUS' => $kodeStatus
+                ]);
+        } else if ($newKodeStatus == 10) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    // 'APPRV_HR_MNG' => $approve_hr_mng,
+                    'KETERANGAN_HR_MNG' => $ket_hr_mng,
+                    'UPDATE_AT_HR_MNG' => $upd_hr_mng,
+                    'STATUS' => $kodeStatus
+                ]);
+        } else if ($kodeStatus == 11) {
+            DB::table('pocket_moving_tbl_t_pelatihan')
+                ->where('PID', $selectedPelatihanId)
+                ->update([
+                    // 'APPRV_DRC' => $approve_drc,
+                    'KETERANGAN_DRC' => $ket_drc,
+                    'UPDATE_AT_DRC' => $upd_drc,
+                    'STATUS' => 11,
+                ]);
+        }
+
+
+        return 'Data Pelatihan berhasil di "Revisi"';
     }
 
-    public function reject($rejectName, $selectedPelatihanId, $pesanReject, $userId)
-    {
-    
-        DB::table('m_pelatihan')
-            ->where('id', $selectedPelatihanId)
-            ->update([
-                'reject_by' => $userId,
-                'reject_name' => $rejectName,
-                'kode_status' => 8,
-                'reject_desc' => $pesanReject
-            ]);
 
-        return 'Revisi berhasil dikirim dan kode status diperbarui.';
+    public function reject($rejectName, $selectedPelatihanId, $pesanReject, $userId, $userRole)
+    {
+        switch ($userRole) {
+            case 2:
+                DB::table('pocket_moving_tbl_t_pelatihan')
+                    ->where('PID', $selectedPelatihanId)
+                    ->update([
+                        'APPRV_ATASAN' => 0,
+                        'STATUS' => 7,
+                        'KETERANGAN_ATASAN' => $pesanReject,
+                    ]);
+                break;
+            case 3:
+                DB::table('pocket_moving_tbl_t_pelatihan')
+                    ->where('PID', $selectedPelatihanId)
+                    ->update([
+                        'APPRV_HR' => 0,
+                        'STATUS' => 7,
+                        'KETERANGAN_HR' => $pesanReject,
+                    ]);
+                break;
+            case 4:
+                DB::table('pocket_moving_tbl_t_pelatihan')
+                    ->where('PID', $selectedPelatihanId)
+                    ->update([
+                        'APPRV_HR_MNG' => 0,
+                        'STATUS' => 7,
+                        'KETERANGAN_HR_MNG' => $pesanReject,
+                    ]);
+                break;
+            case 5:
+                DB::table('pocket_moving_tbl_t_pelatihan')
+                    ->where('PID', $selectedPelatihanId)
+                    ->update([
+                        'APPRV_DRC' => 0,
+                        'STATUS' => 7,
+                        'KETERANGAN_DRC' => $pesanReject,
+                    ]);
+                break;
+            default:
+                DB::table('pocket_moving_tbl_t_pelatihan')
+                    ->where('PID', $selectedPelatihanId)
+                    ->update([
+                        'APPRV_ATASAN' => 0,
+                        'STATUS' => 7,
+                        'KETERANGAN_ATASAN' => $pesanReject,
+                    ]);
+                break;
+        }
+
+
+
+
+        return 'Data Pelatihan Berhasil di "Reject"';
     }
 
     public function delete($selectedPelatihanId)
     {
         try {
-            DB::table('m_pelatihan')->where('id', $selectedPelatihanId)->delete();
-            return 'Data pelatihan berhasil dihapus.';
+            DB::table('pocket_moving_tbl_t_pelatihan')->where('PID', $selectedPelatihanId)->delete();
+            return 'Data Pelatihan Berhasil dihapus.';
         } catch (\Exception $e) {
             return 'Gagal menghapus data pelatihan: ' . $e->getMessage();
         }
     }
-
-
-    
 }
 
-?>
